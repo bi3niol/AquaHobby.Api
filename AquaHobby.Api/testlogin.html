@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <style>
+        .my-class{
+            font-weight:900;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="result">czekanie na res</h2>
+    <div>
+        <p>
+            <div>
+                <div onclick="remove()" class="active my-class">test ze tak powiem</div>
+            </div>
+        </p>
+        <div class="active my-class">next ze tak powiem</div>
+    </div>
+    <script>
+        var tokenKey = "_token";
+        var token;
+        var headers = {};
+
+        function remove() {
+            var el = $(".my-class").removeClass("my-class");
+            console.log("poszlo");
+        }
+
+        function registerAccount() {
+            var data = {
+                Email: "testmail@gmail.com",
+                Password: "TestPass!@#123",
+                ConfirmPassword: "TestPass!@#123"
+            };
+            console.log("zaraz ajax");
+            $.ajax({
+                type: 'POST',
+                url: '/api/Account/Register',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (data) {
+                $("#result").html(JSON.stringify(data));
+            }).fail(function (e) { console.log(e) });
+        };
+
+        (function logIn(user, password) {
+            var loginData = {
+                grant_type: 'password',
+                username: user,
+                password: password
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/Token',
+                data: loginData
+            }).done(function (data) {
+                sessionStorage.setItem(tokenKey, data.access_token);
+                token = sessionStorage.getItem(tokenKey);
+                headers.Authorization = 'Bearer ' + token;
+                console.log(token);
+                getData();
+            }).fail(function (e) { console.log(e) });
+        })("testmail@gmail.com","TestPass!@#123");
+        function getData() {
+            for (var i = 0; i < 10; i++) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/values/'+i,
+                    headers: headers
+                }).done(function (data) {
+                    $("#result").append(JSON.stringify(data));
+                }).fail(function (e) { console.log(e) });
+            }
+            
+        };
+    </script>
+</body>
+
+</html>
