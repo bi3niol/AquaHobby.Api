@@ -30,7 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,8 +47,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepository.cs" />
+    <Compile Include="IIllnessesRepository.cs" />
+    <Compile Include="IHealthBooksRepository.cs" />
+    <Compile Include="IFishRepository.cs" />
+    <Compile Include="IKindNotyficationsRepository.cs" />
+    <Compile Include="Implementations\AppUsersRepository.cs" />
+    <Compile Include="Implementations\AquariumsRepository.cs" />
+    <Compile Include="Implementations\FishRepository.cs" />
+    <Compile Include="Implementations\GalleriesRepository.cs" />
+    <Compile Include="Implementations\HealthBooksRepository.cs" />
+    <Compile Include="Implementations\IllnessesRepository.cs" />
+    <Compile Include="Implementations\KindNotyficationsRepository.cs" />
+    <Compile Include="Implementations\KindsRepository.cs" />
+    <Compile Include="Implementations\NursingsRepository.cs" />
+    <Compile Include="Implementations\ObservationsRepository.cs" />
+    <Compile Include="Implementations\PhotosRepository.cs" />
+    <Compile Include="Implementations\WaterChangesRepository.cs" />
+    <Compile Include="INursingsRepository.cs" />
+    <Compile Include="IObservationsRepository.cs" />
+    <Compile Include="IKindsRepository.cs" />
+    <Compile Include="IWaterChangesRepository.cs" />
+    <Compile Include="IAquariumsRepository.cs" />
+    <Compile Include="IGalleriesRepository.cs" />
+    <Compile Include="IPhotosRepository.cs" />
+    <Compile Include="IAppUsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AquaHobby.Models\AquaHobby.Models.csproj">
+      <Project>{C8BF607F-A3DC-414B-9D48-5BF3F8BF5C2E}</Project>
+      <Name>AquaHobby.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bieniol.Base\Bieniol.Base.csproj">
+      <Project>{66FFF9A0-0E51-40CE-85E2-4FB6BEABB5EF}</Project>
+      <Name>Bieniol.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

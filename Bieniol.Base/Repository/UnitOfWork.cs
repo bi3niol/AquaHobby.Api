@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bieniol.Base.Repository
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork<TDb> : IUnitOfWork<TDb> where TDb: DbContext
     {
-        protected DbContext context;
-        public UnitOfWork(DbContext context)
+        public TDb context { get; }
+        public UnitOfWork(TDb context)
         {
             this.context = context;
         }
