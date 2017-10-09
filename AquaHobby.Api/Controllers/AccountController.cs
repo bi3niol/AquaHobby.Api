@@ -331,7 +331,8 @@ namespace AquaHobby.Api.Controllers
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);           
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);  
+            
 
             if (!result.Succeeded)
             {
@@ -361,7 +362,7 @@ namespace AquaHobby.Api.Controllers
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
-
+            
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);

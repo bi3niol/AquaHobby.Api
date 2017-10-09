@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaHobby.Models", "AquaHob
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bieniol.Base", "Bieniol.Base\Bieniol.Base.csproj", "{66FFF9A0-0E51-40CE-85E2-4FB6BEABB5EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaHobby.DAL", "AquaHobby.DAL\AquaHobby.DAL.csproj", "{DFE4B165-0838-4079-9318-B4C0C7367BEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,11 +35,16 @@ Global
 		{66FFF9A0-0E51-40CE-85E2-4FB6BEABB5EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66FFF9A0-0E51-40CE-85E2-4FB6BEABB5EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66FFF9A0-0E51-40CE-85E2-4FB6BEABB5EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFE4B165-0838-4079-9318-B4C0C7367BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE4B165-0838-4079-9318-B4C0C7367BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE4B165-0838-4079-9318-B4C0C7367BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE4B165-0838-4079-9318-B4C0C7367BEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 		SolutionGuid = {B5BA106D-0426-46AB-96F3-52AE5C6EC09B}
 	EndGlobalSection
 EndGlobal
