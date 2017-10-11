@@ -301,7 +301,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="testlogin.html" />
     <Content Include="Unity.Mvc4.README.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -336,6 +338,10 @@
     <ProjectReference Include="..\AquaHobby.DAL\AquaHobby.DAL.csproj">
       <Project>{DFE4B165-0838-4079-9318-B4C0C7367BEE}</Project>
       <Name>AquaHobby.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AquaHobby.Models\AquaHobby.Models.csproj">
+      <Project>{C8BF607F-A3DC-414B-9D48-5BF3F8BF5C2E}</Project>
+      <Name>AquaHobby.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\AquaHobby.Repository\AquaHobby.Repository.csproj">
       <Project>{69FEFBD1-D9AC-47D1-B276-8DAB1D478E6B}</Project>

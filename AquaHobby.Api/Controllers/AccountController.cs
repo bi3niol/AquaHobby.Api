@@ -17,6 +17,8 @@ using AquaHobby.Api.Models;
 using AquaHobby.Api.Providers;
 using AquaHobby.Api.Results;
 using System.Linq;
+using AquaHobby.DAL.Services;
+using AquaHobby.Models.User;
 
 namespace AquaHobby.Api.Controllers
 {
@@ -26,17 +28,19 @@ namespace AquaHobby.Api.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-
-        public AccountController()
+        private IAppUserService UserService;
+        public AccountController(IAppUserService userService)
         {
+            this.UserService = userService;
         }
 
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
-        }
+        //public AccountController(ApplicationUserManager userManager,
+        //    ISecureDataFormat<AuthenticationTicket> accessTokenFormat )
+        //{
+        //    UserManager = userManager;
+        //    AccessTokenFormat = accessTokenFormat;
+           
+        //}
 
         public ApplicationUserManager UserManager
         {
@@ -331,15 +335,21 @@ namespace AquaHobby.Api.Controllers
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);  
-            
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
-
+            user = UserManager.FindByName(model.Email);
+            RegisterAppUser(user);
             return Ok();
+        }
+
+        private void RegisterAppUser(ApplicationUser user)
+        {
+            AppUser newuser = new AppUser() { Id = user.Id,Name=user.UserName};
+            this.UserService.RegisterUser(newuser);
         }
 
         // POST api/Account/RegisterExternal

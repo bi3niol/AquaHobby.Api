@@ -8,8 +8,9 @@ namespace AquaHobby.Models.Photos
     {
         public string ImageUrl { get; set; }
         public DateTime Uploaded { get; set; }
-        [ForeignKey("Gallery")]
         public long GalleryId { get; set; }
+        [ForeignKey("GalleryId")]
+        public Gallery Gallery { get; set; }
         public Photo()
         {
             Uploaded = DateTime.Now;

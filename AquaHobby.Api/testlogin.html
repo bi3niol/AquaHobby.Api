@@ -33,7 +33,7 @@
 
         function registerAccount() {
             var data = {
-                Email: "testmail@gmail.com",
+                Email: "kupka12@gmail.com",
                 Password: "TestPass!@#123",
                 ConfirmPassword: "TestPass!@#123"
             };
@@ -47,7 +47,7 @@
                 $("#result").html(JSON.stringify(data));
             }).fail(function (e) { console.log(e) });
         };
-
+        registerAccount();
         (function logIn(user, password) {
             var loginData = {
                 grant_type: 'password',
@@ -75,9 +75,9 @@
                 }).done(function (data) {
                     $("#result").append(JSON.stringify(data));
                 }).fail(function (e) { console.log(e) });
-            }
-            
+            }            
         };
+       // getData();
     </script>
 </body>
 

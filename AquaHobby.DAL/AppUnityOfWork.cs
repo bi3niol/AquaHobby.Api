@@ -31,8 +31,18 @@ namespace AquaHobby.DAL
            IKindNotyficationsRepository KindNotyficationsRepository, IKindsRepository KindsRepository, INursingsRepository NursingsRepository,
            IObservationsRepository ObservationsRepository, IPhotosRepository PhotosRepository, IWaterChangesRepository WaterChangesRepository,DbContext context):base(context)
         {
-
-            int i = 0;
+            this.UsersRepository = UsersRepository;
+            this.AquariumsRepository = AquariumsRepository;
+            this.FishRepository = FishRepository;
+            this.GalleriesRepository = GalleriesRepository;
+            this.HealthBooksRepository = HealthBooksRepository;
+            this.IllnessesRepository = IllnessesRepository;
+            this.KindNotyficationsRepository = KindNotyficationsRepository;
+            this.KindsRepository = KindsRepository;
+            this.NursingsRepository = NursingsRepository;
+            this.ObservationsRepository = ObservationsRepository;
+            this.PhotosRepository = PhotosRepository;
+            this.WaterChangesRepository = WaterChangesRepository;
         }
     }
 }

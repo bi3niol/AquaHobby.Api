@@ -19,7 +19,16 @@ namespace Bieniol.Base.Repository
         }
         public void Add(TEntity entity)
         {
-            dbSet.Add(entity);
+            try
+            {
+                dbSet.Add(entity);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
 
         public IQueryable<TEntity> GetAll()
