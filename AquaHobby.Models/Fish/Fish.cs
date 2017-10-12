@@ -1,5 +1,7 @@
-﻿using AquaHobby.Models.Interfaces;
+﻿using AquaHobby.Models.Base;
+using AquaHobby.Models.Interfaces;
 using AquaHobby.Models.Photos;
+using AquaHobby.Models.User;
 using Bieniol.Base.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AquaHobby.Models.Fish
 {
-    public class Fish: BaseEntity<long>, INursingable
+    public class Fish: AppEntity<long>, INursingable
     {
         [Required]
         public string FishName { get; set; }
@@ -20,12 +22,13 @@ namespace AquaHobby.Models.Fish
         public long HealthBookId { get; set; }
         public HealthBook HealthBook { get; set; }
 
-        [ForeignKey("Photos")]
-        public long? GalleryId { get; set; }
-        public Gallery Photos { get; set; }
-
         [ForeignKey("Kind")]
         public long? KindId { get; set; }
+        public Kind Kind { get; set; }        
+
+        [ForeignKey("Aquarium")]
+        public long? AquariumId { get; set; }
+        public Aquarium Aquarium { get; set; }        
 
         public void doNursing(Nursing nursing)
         {
@@ -35,6 +38,5 @@ namespace AquaHobby.Models.Fish
             }
         }
 
-        public Kind Kind { get; set; }
     }
 }

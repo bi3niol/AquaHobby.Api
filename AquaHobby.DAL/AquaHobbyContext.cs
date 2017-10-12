@@ -28,9 +28,9 @@ namespace AquaHobby.DAL
         public DbSet<Aquarium> Aquariums { get; set; }
         public DbSet<WaterChange> WaterChanges { get; set; }
 
-        //public AquaHobbyContext() : base("AquaHobbyContext")
-        //{
-        //    Database.SetInitializer<AquaHobbyContext>(new CreateDatabaseIfNotExists<AquaHobbyContext>());
-        //}
+        public AquaHobbyContext() : base("AquaHobbyContext")
+        {
+            Database.SetInitializer<AquaHobbyContext>(new DropCreateDatabaseIfModelChanges<AquaHobbyContext>());
+        }
     }
 }

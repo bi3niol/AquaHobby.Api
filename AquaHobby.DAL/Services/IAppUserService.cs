@@ -1,4 +1,5 @@
-﻿using AquaHobby.Models.User;
+﻿using AquaHobby.Models;
+using AquaHobby.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace AquaHobby.DAL.Services
     public interface IAppUserService
     {
         bool RegisterUser(AppUser user);
+        void AddAquarium(Aquarium aquarium,string userId);
     }
 }

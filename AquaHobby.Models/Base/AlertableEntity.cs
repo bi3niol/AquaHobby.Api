@@ -1,6 +1,6 @@
 ﻿namespace AquaHobby.Models.Base
 {
-    public abstract class AlertableEntity<Tkey>: Bieniol.Base.Models.BaseEntity<Tkey>
+    public abstract class AlertableEntity<Tkey>: AppEntity<Tkey>
     {
         public int NumberOfAlerts { get; set; }
     }

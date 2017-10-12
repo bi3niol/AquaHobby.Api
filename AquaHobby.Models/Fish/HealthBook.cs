@@ -1,14 +1,20 @@
-﻿using AquaHobby.Models.Interfaces;
+﻿using AquaHobby.Models.Base;
+using AquaHobby.Models.Interfaces;
 using Bieniol.Base.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AquaHobby.Models.Fish
 {
-    public class HealthBook:BaseEntity<long>, INursingable
+    public class HealthBook:AppEntity<long>, INursingable
     {
         public List<Illness> Illnesses { get; set; }
         public List<Observation> Observations { get; set; }
         public List<Nursing> Nursing { get; set; }
+
+        //[ForeignKey("Fish")]
+        public long FishId { get; set; }
+        //public Fish Fish { get; set; }
 
         public HealthBook():base()
         {
@@ -19,6 +25,7 @@ namespace AquaHobby.Models.Fish
 
         public void doNursing(Nursing nursing)
         {
+            nursing.HealthBookId = Id;
             Nursing.Add(nursing);
         }
     }

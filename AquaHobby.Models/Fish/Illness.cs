@@ -1,13 +1,19 @@
-﻿using Bieniol.Base.Models;
+﻿using AquaHobby.Models.Base;
+using Bieniol.Base.Models;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AquaHobby.Models.Fish
 {
-    public class Illness:BaseEntity<long>
+    public class Illness:AppEntity<long>
     {
         public string Name { get; set; }
         public DateTime Start { get; set; }
         public DateTime? End { get; set; }
+
+        [ForeignKey("HealthBook")]
+        public long? HealthBookId { get; set; }
+        public HealthBook HealthBook { get; set; }
 
         /// <summary>
         /// 

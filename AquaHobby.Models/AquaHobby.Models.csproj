@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aquarium.cs" />
+    <Compile Include="Base\AppEntity.cs" />
     <Compile Include="Base\ObservableEntity.cs" />
     <Compile Include="Base\Size.cs" />
     <Compile Include="Fish\Fish.cs" />

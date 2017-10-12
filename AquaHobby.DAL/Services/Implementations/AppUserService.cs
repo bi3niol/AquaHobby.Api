@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AquaHobby.Models;
 using AquaHobby.Models.User;
 
 namespace AquaHobby.DAL.Services.Implementations
@@ -14,6 +15,12 @@ namespace AquaHobby.DAL.Services.Implementations
         {
             UnitOfWork = uof;
         }
+
+        public void AddAquarium(Aquarium aquarium, string userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool RegisterUser(AppUser user)
         {
             UnitOfWork.UsersRepository.Add(user);
