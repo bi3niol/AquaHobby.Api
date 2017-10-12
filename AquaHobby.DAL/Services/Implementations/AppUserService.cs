@@ -18,6 +18,13 @@ namespace AquaHobby.DAL.Services.Implementations
 
         public void AddAquarium(Aquarium aquarium, string userId)
         {
+            if (aquarium.Id != 0)
+            {
+            }
+        }
+
+        public void AddNewAquarium(Aquarium aquarium, string userId)
+        {
             throw new NotImplementedException();
         }
 

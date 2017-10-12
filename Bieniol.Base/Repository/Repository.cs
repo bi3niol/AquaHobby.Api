@@ -17,28 +17,19 @@ namespace Bieniol.Base.Repository
             this.context = context;
             this.dbSet = context.Set<TEntity>();
         }
-        public void Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
-            try
-            {
-                dbSet.Add(entity);
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-            
+            return dbSet.Add(entity);
         }
 
         public IQueryable<TEntity> GetAll()
         {
-            return dbSet.Where(e=>true);
+            return dbSet.Where(e => true);
         }
 
         public TEntity GetEntity(TKey id)
-        {            
-            return dbSet.FirstOrDefault(e=>e.Id.Equals(id));
+        {
+            return dbSet.FirstOrDefault(e => e.Id.Equals(id));
         }
 
         public IQueryable<TEntity> GetEntityByExpression(Expression<Func<TEntity, bool>> predicate)
@@ -62,7 +53,7 @@ namespace Bieniol.Base.Repository
 
         public void Update(TEntity entity)
         {
-            dbSet.Attach(entity);
+            entity = dbSet.Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
         }
     }

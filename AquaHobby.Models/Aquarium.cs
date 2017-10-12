@@ -17,9 +17,11 @@ namespace AquaHobby.Models
         public List<WaterChange> ChangesOfWater { get; set; }
         public List<Nursing> Nursing { get; set; }
 
-        //[ForeignKey("Photos")]
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public AppUser User { get; set; }
+
         public long? GalleryId { get; set; }
-        //public Gallery Photos { get; set; }
 
         public Aquarium()
         {

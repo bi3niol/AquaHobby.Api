@@ -39,7 +39,7 @@ namespace AquaHobby.Api.Controllers
         //{
         //    UserManager = userManager;
         //    AccessTokenFormat = accessTokenFormat;
-           
+
         //}
 
         public ApplicationUserManager UserManager
@@ -130,7 +130,7 @@ namespace AquaHobby.Api.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -257,15 +257,15 @@ namespace AquaHobby.Api.Controllers
 
             ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
-            
+
             bool hasRegistered = user != null;
 
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -348,8 +348,15 @@ namespace AquaHobby.Api.Controllers
 
         private void RegisterAppUser(ApplicationUser user)
         {
-            AppUser newuser = new AppUser() { Id = user.Id,Name=user.UserName};
-            this.UserService.RegisterUser(newuser);
+            AppUser newuser = new AppUser() { Id = user.Id, Name = user.UserName };
+            try
+            {
+                this.UserService.RegisterUser(newuser);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         // POST api/Account/RegisterExternal
@@ -372,7 +379,7 @@ namespace AquaHobby.Api.Controllers
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -381,7 +388,7 @@ namespace AquaHobby.Api.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }

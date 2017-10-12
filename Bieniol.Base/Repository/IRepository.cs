@@ -19,7 +19,7 @@ namespace Bieniol.Base.Repository
         /// Add entity to database
         /// </summary>
         /// <param name="entity"></param>
-        void Add(TEntity entity);
+        TEntity Add(TEntity entity);
         /// <summary>
         /// remove given entity
         /// </summary>
