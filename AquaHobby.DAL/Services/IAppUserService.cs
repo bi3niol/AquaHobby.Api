@@ -1,4 +1,5 @@
 ﻿using AquaHobby.Models;
+using AquaHobby.Models.Photos;
 using AquaHobby.Models.User;
 using System;
 using System.Collections.Generic;
@@ -23,5 +24,8 @@ namespace AquaHobby.DAL.Services
         /// <param name="aquarium">existing aquarium in DB</param>
         /// <param name="userId"></param>
         void AddAquarium(Aquarium aquarium, string userId);
+
+        void AddGallery(Gallery gallery, string userId);
+        void AddGallery(long galleryId, string userId);
     }
 }

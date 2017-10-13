@@ -11,9 +11,9 @@ namespace AquaHobby.Models.Photos
         public string Name { get; set; }
         public ICollection<Photo> Photos { get; set; }
 
-        //[ForeignKey("User")]
+        [ForeignKey("User")]
         public string UserId { get; set; }
-        //public AppUser User { get; set; }
+        public AppUser User { get; set; }
 
         //[ForeignKey("Aquarium")]
         public long? AquariumId { get; set; }

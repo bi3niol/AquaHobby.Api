@@ -9,8 +9,7 @@ namespace AquaHobby.Models.User
     public class AppUser: BaseEntity<string>
     {
         public string Name { get; set; }
-        public long? GalleryId { get; set; }
-        
+        public List<Gallery> GalleryId { get; set; }        
         public List<Aquarium> Aquariums { get; set; }
     }
 }

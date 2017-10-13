@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AquaHobby.Models;
+using AquaHobby.Models.Photos;
 using AquaHobby.Models.User;
 
 namespace AquaHobby.DAL.Services.Implementations
@@ -18,14 +19,36 @@ namespace AquaHobby.DAL.Services.Implementations
 
         public void AddAquarium(Aquarium aquarium, string userId)
         {
-            if (aquarium.Id != 0)
+            if (aquarium!=null && aquarium.Id != 0)
             {
+                var user = UnitOfWork.UsersRepository.GetEntity(userId);
+                aquarium.User = user;
+                //user.Aquariums.Add(aquarium);          
+                //update aquarium??
+                UnitOfWork.Save();
             }
+        }
+
+        public void AddGallery(Gallery gallery, string userId)
+        {
+            gallery.UserId = userId;
+            UnitOfWork.Save();
+        }
+
+        public void AddGallery(long galleryId, string userId)
+        {
+            var gallery = UnitOfWork.GalleriesRepository.GetEntity(galleryId);
+            AddGallery(gallery, userId);
         }
 
         public void AddNewAquarium(Aquarium aquarium, string userId)
         {
-            throw new NotImplementedException();
+            aquarium = UnitOfWork.AquariumsRepository.Add(aquarium);
+            if (aquarium != null)
+            {
+                aquarium.OwnerId = userId;
+                AddAquarium(aquarium, userId);
+            }
         }
 
         public bool RegisterUser(AppUser user)
