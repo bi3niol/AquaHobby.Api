@@ -6,6 +6,7 @@ using AquaHobby.Models.User;
 using Bieniol.Base.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace AquaHobby.Models
 {
@@ -19,6 +20,7 @@ namespace AquaHobby.Models
 
         [ForeignKey("User")]
         public string UserId { get; set; }
+        [IgnoreDataMember]
         public AppUser User { get; set; }
 
         public long? GalleryId { get; set; }

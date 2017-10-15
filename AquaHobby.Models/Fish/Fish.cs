@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,15 +21,21 @@ namespace AquaHobby.Models.Fish
 
         [ForeignKey("HealthBook")]
         public long HealthBookId { get; set; }
+        [IgnoreDataMember]
         public HealthBook HealthBook { get; set; }
 
         [ForeignKey("Kind")]
         public long? KindId { get; set; }
-        public Kind Kind { get; set; }        
+        [IgnoreDataMember]
+        public Kind Kind { get; set; }
 
         [ForeignKey("Aquarium")]
         public long? AquariumId { get; set; }
-        public Aquarium Aquarium { get; set; }        
+        [IgnoreDataMember]
+        public Aquarium Aquarium { get; set; }
+
+        [IgnoreDataMember]
+        public List<Photo> Photos { get; set; }        
 
         public void doNursing(Nursing nursing)
         {

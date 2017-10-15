@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Bieniol.Base.Repository
 {
@@ -29,7 +30,7 @@ namespace Bieniol.Base.Repository
 
         public TEntity GetEntity(TKey id)
         {
-            return dbSet.FirstOrDefault(e => e.Id.Equals(id));
+            return dbSet.FirstOrDefault(e => e.Id.ToString()==id.ToString());
         }
 
         public IQueryable<TEntity> GetEntityByExpression(Expression<Func<TEntity, bool>> predicate)
@@ -37,9 +38,10 @@ namespace Bieniol.Base.Repository
             return dbSet.Where(predicate);
         }
 
-        public IEnumerable<TEntity> GetEntityByFilter(Func<TEntity, bool> predicate)
+        public async Task<IEnumerable<TEntity>> GetEntityByFilterAsync(Func<TEntity, bool> predicate)
         {
-            return dbSet.ToList().Where(predicate);
+            var list = await dbSet.ToListAsync();
+            return list.Where(predicate);
         }
 
         public void Remove(TEntity entity)

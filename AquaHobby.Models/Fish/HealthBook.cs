@@ -3,6 +3,7 @@ using AquaHobby.Models.Interfaces;
 using Bieniol.Base.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace AquaHobby.Models.Fish
 {
@@ -13,7 +14,8 @@ namespace AquaHobby.Models.Fish
         public List<Nursing> Nursing { get; set; }
 
         //[ForeignKey("Fish")]
-        public long FishId { get; set; }
+        //public long FishId { get; set; }
+        //[IgnoreDataMember]
         //public Fish Fish { get; set; }
 
         public HealthBook():base()

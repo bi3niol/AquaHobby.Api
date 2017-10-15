@@ -78,25 +78,5 @@ namespace AquaHobby.Api
                 container.Dispose();
             }
         }
-        //private static UnityContainer GetContainer()
-        //{
-        //    UnityContainer container = new UnityContainer();
-
-        //    container.RegisterType<IAppUsersRepository, AppUsersRepository>();
-        //    container.RegisterType<IAquariumsRepository, AquariumsRepository>();
-        //    container.RegisterType<IFishRepository, FishRepository>();
-        //    container.RegisterType<IGalleriesRepository, GalleriesRepository>();
-        //    container.RegisterType<IHealthBooksRepository, HealthBooksRepository>();
-        //    container.RegisterType<IIllnessesRepository, IllnessesRepository>();
-        //    container.RegisterType<IKindsRepository, KindsRepository>();
-        //    container.RegisterType<INursingsRepository, NursingsRepository>();
-        //    container.RegisterType<IKindNotyficationsRepository, KindNotyficationsRepository>();
-        //    container.RegisterType<IObservationsRepository, ObservationsRepository>();
-        //    container.RegisterType<IPhotosRepository, PhotosRepository>();
-        //    container.RegisterType<IWaterChangesRepository, WaterChangesRepository>();
-        //    container.RegisterType<DbContext, AquaHobbyContext>(new ContainerControlledLifetimeManager());
-        //    container.RegisterType<AppUnityOfWork>(new ContainerControlledLifetimeManager());
-        //    return container;
-        //}
     }
 }

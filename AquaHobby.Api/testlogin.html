@@ -25,7 +25,8 @@
         var tokenKey = "_token";
         var token;
         var headers = {};
-
+        var user = "bi3niol@gmail.com";
+        var pw = "Lol123!@#";
         function remove() {
             var el = $(".my-class").removeClass("my-class");
             console.log("poszlo");
@@ -33,9 +34,9 @@
 
         function registerAccount() {
             var data = {
-                Email: "ol22aawd22awddadwd412@gmail.com",
-                Password: "TestPass!@#123",
-                ConfirmPassword: "TestPass!@#123"
+                Email: user,
+                Password: pw,
+                ConfirmPassword: pw
             };
             console.log("zaraz ajax");
             $.ajax({
@@ -47,7 +48,7 @@
                 $("#result").html(JSON.stringify(data));
             }).fail(function (e) { console.log(e) });
         };
-        registerAccount();
+        //registerAccount();
         (function logIn(user, password) {
             var loginData = {
                 grant_type: 'password',
@@ -65,7 +66,7 @@
                 console.log(token);
                 getData();
             }).fail(function (e) { console.log(e) });
-        })("testmail@gmail.com","TestPass!@#123");
+        })(user,pw);
         function getData() {
             for (var i = 0; i < 10; i++) {
                 $.ajax({

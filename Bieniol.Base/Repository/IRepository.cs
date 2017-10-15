@@ -37,13 +37,13 @@ namespace Bieniol.Base.Repository
         /// <returns>found entity</returns>
         TEntity GetEntity(TKey id);
         /// <summary>
-        /// 
+        /// memory consuming method not recommended
         /// </summary>
         /// <param name="predicate">filter predicate</param>
         /// <returns>returns entities matched to given predicate</returns>
-        IEnumerable<TEntity> GetEntityByFilter(Func<TEntity, bool> predicate);
+        Task<IEnumerable<TEntity>> GetEntityByFilterAsync(Func<TEntity, bool> predicate);
         /// <summary>
-        /// 
+        /// recommended
         /// </summary>
         /// <param name="expression">filter predicate</param>
         /// <returns>returns entities matched to given expression</returns>

@@ -55,6 +55,7 @@ namespace AquaHobby.Api
             container.RegisterType<IWaterChangesRepository, WaterChangesRepository>();
             //services
             container.RegisterType<IAppUserService, AppUserService>();
+            container.RegisterType<IGalleryService, GalleryService>();
 
             container.RegisterType<DbContext, AquaHobbyContext>(new PerResolveLifetimeManager());
             container.RegisterType<AppUnityOfWork, AppUnityOfWork>(new PerResolveLifetimeManager());
