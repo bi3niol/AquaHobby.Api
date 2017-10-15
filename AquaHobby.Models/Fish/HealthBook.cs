@@ -12,11 +12,9 @@ namespace AquaHobby.Models.Fish
         public List<Illness> Illnesses { get; set; }
         public List<Observation> Observations { get; set; }
         public List<Nursing> Nursing { get; set; }
-
-        //[ForeignKey("Fish")]
-        //public long FishId { get; set; }
-        //[IgnoreDataMember]
-        //public Fish Fish { get; set; }
+        
+        [IgnoreDataMember]
+        public List<Fish> Fish { get; set; }
 
         public HealthBook():base()
         {
@@ -27,7 +25,6 @@ namespace AquaHobby.Models.Fish
 
         public void doNursing(Nursing nursing)
         {
-            nursing.HealthBookId = Id;
             Nursing.Add(nursing);
         }
     }
