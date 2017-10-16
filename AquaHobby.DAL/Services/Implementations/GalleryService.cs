@@ -18,7 +18,9 @@ namespace AquaHobby.DAL.Services.Implementations
 
         public Gallery AddGallery(Gallery gallery)
         {
-            return UnitOfWork.GalleriesRepository.Add(gallery);
+            var _gallery = UnitOfWork.GalleriesRepository.Add(gallery);
+            UnitOfWork.Save();
+            return _gallery;
         }
 
         public bool AddPhoto(long galleryId, string userId, Photo photo)
@@ -26,6 +28,9 @@ namespace AquaHobby.DAL.Services.Implementations
             if (photo == null)
                 return false;
             if (userId != photo.OwnerId)
+                return false;
+            var gall = UnitOfWork.GalleriesRepository.GetEntity(galleryId);
+            if (gall.OwnerId != userId)
                 return false;
             photo.GalleryId = galleryId;
             UnitOfWork.Save();
@@ -47,20 +52,23 @@ namespace AquaHobby.DAL.Services.Implementations
         {
             var gallery = UnitOfWork.GalleriesRepository.GetEntity(galleryId);
             if (gallery != null)
-               await UnitOfWork.context.Entry(gallery).Collection(g => g.Photos).LoadAsync();
+                await UnitOfWork.context.Entry(gallery).Collection(g => g.Photos).LoadAsync();
             return gallery;
         }
 
         public async Task<Photo[]> GetGalleryPhotosAsync(long galleryId)
         {
-           var res = await UnitOfWork.PhotosRepository.GetEntityByExpression(p => p.GalleryId == galleryId).ToArrayAsync();
+            var res = await UnitOfWork.PhotosRepository.GetEntityByExpression(p => p.GalleryId == galleryId).ToArrayAsync();
             return res;
         }
 
-        public void Update(Gallery gallery)
+        public bool Update(Gallery gallery, string userId)
         {
+            if (gallery == null || gallery.OwnerId != userId)
+                return false;
             UnitOfWork.GalleriesRepository.Update(gallery);
             UnitOfWork.Save();
+            return true;
         }
     }
 }

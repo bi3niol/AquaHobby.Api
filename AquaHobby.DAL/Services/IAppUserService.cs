@@ -30,8 +30,8 @@ namespace AquaHobby.DAL.Services
         /// </summary>
         /// <param name="gallery">reference to DB object of Gallery</param>
         /// <param name="userId"></param>
-        void AddGallery(Gallery gallery, string userId);
-        void AddGallery(long galleryId, string userId);
+        bool AddGallery(Gallery gallery, string userId);
+        bool AddGallery(long galleryId, string userId);
 
         Task<AppUser> GetUserWithProperiesAsync(string userId);
         Task<AppUser[]> GetUsersAsync();

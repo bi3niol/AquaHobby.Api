@@ -38,6 +38,6 @@ namespace AquaHobby.DAL.Services
 
         Task<Gallery> GetGalleryAsync(long galleryId);
 
-        void Update(Gallery gallery);
+        bool Update(Gallery gallery,string userId);
     }
 }

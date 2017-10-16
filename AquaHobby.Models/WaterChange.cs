@@ -1,5 +1,6 @@
 ﻿using AquaHobby.Models.Base;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace AquaHobby.Models
 {
@@ -9,6 +10,7 @@ namespace AquaHobby.Models
 
         [ForeignKey("Aquarium")]
         public long AquariumId { get; set; }
+        [IgnoreDataMember]
         public Aquarium Aquarium { get; set; }
     }
 }

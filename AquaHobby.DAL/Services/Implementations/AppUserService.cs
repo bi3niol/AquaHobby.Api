@@ -28,16 +28,19 @@ namespace AquaHobby.DAL.Services.Implementations
             }
         }
 
-        public void AddGallery(Gallery gallery, string userId)
+        public bool AddGallery(Gallery gallery, string userId)
         {
+            if (gallery.OwnerId != userId)
+                return false;
             gallery.UserId = userId;
             UnitOfWork.Save();
+            return true;
         }
 
-        public void AddGallery(long galleryId, string userId)
+        public bool  AddGallery(long galleryId, string userId)
         {
             var gallery = UnitOfWork.GalleriesRepository.GetEntity(galleryId);
-            AddGallery(gallery, userId);
+            return AddGallery(gallery, userId);
         }
 
         public void AddNewAquarium(Aquarium aquarium, string userId)
@@ -46,7 +49,7 @@ namespace AquaHobby.DAL.Services.Implementations
             if (aquarium != null)
             {
                 aquarium.OwnerId = userId;
-                AddAquarium(aquarium, userId);
+
             }
         }
 

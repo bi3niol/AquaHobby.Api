@@ -51,8 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AppUnityOfWork.cs" />
     <Compile Include="Services\IAppUserService.cs" />
+    <Compile Include="Services\IAquariumService.cs" />
     <Compile Include="Services\IGalleryService.cs" />
     <Compile Include="Services\Implementations\AppUserService.cs" />
+    <Compile Include="Services\Implementations\AquariumService.cs" />
     <Compile Include="Services\Implementations\GalleryService.cs" />
   </ItemGroup>
   <ItemGroup />
