@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using AquaHobby.Api.Providers;
 using AquaHobby.Api.Models;
+using NWebsec.Owin;
 
 namespace AquaHobby.Api
 {
@@ -22,6 +23,8 @@ namespace AquaHobby.Api
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            // konfiguracja HSTS
+            app.UseHsts(options=>options.MaxAge(seconds: 10886400).IncludeSubdomains().Preload());
             // Skonfiguruj kontekst bazy danych i menedżera użytkowników, aby użyć jednego wystąpienia na żądanie
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
