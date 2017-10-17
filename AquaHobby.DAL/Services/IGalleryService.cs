@@ -10,7 +10,6 @@ namespace AquaHobby.DAL.Services
     public interface IGalleryService
     {
         /// <summary>
-        /// 
         /// </summary>
         /// <returns>All galleries</returns>
         Task<Gallery[]> GetGalleriesAsync();
@@ -26,7 +25,7 @@ namespace AquaHobby.DAL.Services
         /// <param name="userId">loged user Id</param>
         /// <param name="photo">reference to database object very Important!!</param>
         /// <returns>true if photo was added to the gallery</returns>
-        bool AddPhoto(long galleryId,string userId,Photo photo);
+        Task<bool> AddPhoto(long galleryId,string userId,Photo photo);
         /// <summary>
         /// 
         /// </summary>
@@ -34,7 +33,7 @@ namespace AquaHobby.DAL.Services
         /// <param name="userId">loged userId</param>
         /// <param name="photoId"></param>
         /// <returns>true if photo was added to the gallery</returns>
-        bool AddPhoto(long galleryId,string userId,long photoId);
+        Task<bool> AddPhoto(long galleryId,string userId,long photoId);
 
         Task<Gallery> GetGalleryAsync(long galleryId);
 

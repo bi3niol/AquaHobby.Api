@@ -41,8 +41,10 @@ namespace AquaHobby.DAL.Services
         /// <returns></returns>
         Task<bool> AddFish(long fishId, long aquariumId, string userId);
 
-        bool WaterChange(DateTime date,string comment,decimal liters, long aquariumId, string userId);
-        bool WaterChange(WaterChange waterChange, long aquariumId, string userId);
+        Task<bool> Edit(Aquarium aqarium, string userId);
+
+        Task<bool> WaterChange(DateTime date,string comment,decimal liters, long aquariumId, string userId);
+        Task<bool> WaterChange(WaterChange waterChange, long aquariumId, string userId);
 
         Task<bool> AddNursing(DateTime date, string food, decimal Quantity, string comment, long aquariumId, string userId);
         Task<bool> AddNursing(Nursing nursing, long aquariumId, string userId);

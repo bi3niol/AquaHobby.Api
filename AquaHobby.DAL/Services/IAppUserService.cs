@@ -17,7 +17,7 @@ namespace AquaHobby.DAL.Services
         /// </summary>
         /// <param name="aquarium">new aquarium</param>
         /// <param name="userId"></param>
-        void AddNewAquarium(Aquarium aquarium,string userId);
+        void AddNewAquarium(Aquarium aquarium, string userId);
         /// <summary>
         /// add existing aquarium to user
         /// </summary>
@@ -31,13 +31,12 @@ namespace AquaHobby.DAL.Services
         /// <param name="gallery">reference to DB object of Gallery</param>
         /// <param name="userId"></param>
         bool AddGallery(Gallery gallery, string userId);
-        bool AddGallery(long galleryId, string userId);
+        Task<bool> AddGallery(long galleryId, string userId);
 
         Task<AppUser> GetUserWithProperiesAsync(string userId);
         Task<AppUser[]> GetUsersAsync();
-        AppUser GetUser(string userId);
-
-       Task<Gallery[]> GetUserGalleriesAsync(string userId);
-       Task<Aquarium[]> GetUserAquariumsAsync(string userId);
+        Task<AppUser> GetUser(string userId);
+        Task<Gallery[]> GetUserGalleriesAsync(string userId);
+        Task<Aquarium[]> GetUserAquariumsAsync(string userId);
     }
 }

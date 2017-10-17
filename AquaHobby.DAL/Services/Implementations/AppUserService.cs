@@ -37,9 +37,9 @@ namespace AquaHobby.DAL.Services.Implementations
             return true;
         }
 
-        public bool  AddGallery(long galleryId, string userId)
+        public async Task<bool> AddGallery(long galleryId, string userId)
         {
-            var gallery = UnitOfWork.GalleriesRepository.GetEntity(galleryId);
+            var gallery = await UnitOfWork.GalleriesRepository.GetEntityAsync(galleryId);
             return AddGallery(gallery, userId);
         }
 
@@ -53,9 +53,9 @@ namespace AquaHobby.DAL.Services.Implementations
             }
         }
 
-        public AppUser GetUser(string userId)
+        public async Task<AppUser> GetUser(string userId)
         {
-            return UnitOfWork.UsersRepository.GetEntity(userId);
+            return await UnitOfWork.UsersRepository.GetEntityAsync(userId);
         }
 
         public async Task<Aquarium[]> GetUserAquariumsAsync(string userId)
@@ -78,7 +78,7 @@ namespace AquaHobby.DAL.Services.Implementations
 
         public async Task<AppUser> GetUserWithProperiesAsync(string userId)
         {            
-            var user = UnitOfWork.UsersRepository.GetEntity(userId);
+            var user = await UnitOfWork.UsersRepository.GetEntityAsync(userId);
             var entry = UnitOfWork.context.Entry(user);
             await entry.Collection(u => u.Aquariums).LoadAsync();
             await entry.Collection(u => u.Gallery).LoadAsync();

@@ -28,9 +28,9 @@ namespace Bieniol.Base.Repository
             return dbSet.Where(e => true);
         }
 
-        public TEntity GetEntity(TKey id)
+        public async Task<TEntity> GetEntityAsync(TKey id)
         {
-            return dbSet.FirstOrDefault(e => e.Id.ToString()==id.ToString());
+            return await dbSet.FirstOrDefaultAsync(e => e.Id.ToString()==id.ToString());
         }
 
         public IQueryable<TEntity> GetEntityByExpression(Expression<Func<TEntity, bool>> predicate)

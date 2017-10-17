@@ -34,7 +34,8 @@ namespace AquaHobby.DAL.Services.Implementations
 
         public async Task<bool> AddFish(long fishId, long aquariumId, string userId)
         {
-            return await AddFish(UnitOfWork.FishRepository.GetEntity(fishId), aquariumId, userId);
+            var fish = await UnitOfWork.FishRepository.GetEntityAsync(fishId);
+            return await AddFish(fish, aquariumId, userId);
         }
 
         public async Task<bool> AddNursing(DateTime date, string food, decimal quantity, string comment, long aquariumId, string userId)
@@ -50,7 +51,7 @@ namespace AquaHobby.DAL.Services.Implementations
 
         public async Task<bool> AddNursing(Nursing nursing, long aquariumId, string userId)
         {
-            var aqua = UnitOfWork.AquariumsRepository.GetEntity(aquariumId);
+            var aqua = await UnitOfWork.AquariumsRepository.GetEntityAsync(aquariumId);
             if (aqua == null || aqua.OwnerId != userId)
                 return false;
             await UnitOfWork.context.Entry(aqua).Collection(a => a.Fish).LoadAsync();
@@ -84,7 +85,7 @@ namespace AquaHobby.DAL.Services.Implementations
             return aqua;
         }
 
-        public bool WaterChange(DateTime date, string comment, decimal liters, long aquariumId, string userId)
+        public async Task<bool> WaterChange(DateTime date, string comment, decimal liters, long aquariumId, string userId)
         {
             var waterchange = new WaterChange()
             {
@@ -92,16 +93,28 @@ namespace AquaHobby.DAL.Services.Implementations
                 Comment = comment,
                 NumberOfLiters = liters
             };
-            return WaterChange(waterchange, aquariumId, userId);
+            return await WaterChange(waterchange, aquariumId, userId);
         }
 
-        public bool WaterChange(WaterChange waterChange, long aquariumId, string userId)
+        public async Task<bool> WaterChange(WaterChange waterChange, long aquariumId, string userId)
         {
-            var aqua = UnitOfWork.AquariumsRepository.GetEntity(aquariumId);
+            var aqua = await UnitOfWork.AquariumsRepository.GetEntityAsync(aquariumId);
             if (aqua == null || aqua.OwnerId != userId)
                 return false;
             waterChange.OwnerId = userId;
             var wCh = UnitOfWork.WaterChangesRepository.Add(waterChange);
+            UnitOfWork.Save();
+            return true;
+        }
+
+        public async Task<bool> Edit(Aquarium aqarium, string userId)
+        {
+            if (aqarium == null)
+                return false;
+            var aqua = await UnitOfWork.AquariumsRepository.GetEntityByExpression(a => a.Id == aqarium.Id).FirstOrDefaultAsync();
+            if (aqua == null|| aqua.OwnerId!=userId)
+                return false;
+            UnitOfWork.AquariumsRepository.Update(aqarium);//check it
             UnitOfWork.Save();
             return true;
         }

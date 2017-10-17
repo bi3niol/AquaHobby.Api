@@ -13,7 +13,7 @@ namespace AquaHobby.Repository.Implementations
         //TODO: check if it working
         //public async Task<HealthBook> GetHealthBook(long fishId)
         //{
-        //    Fish fish = GetEntity(fishId);
+        //    Fish fish = GetEntityAsync(fishId);
             
         //    await context.Entry(fish).Reference(f => f.HealthBook).LoadAsync();
         //    if (fish.HealthBook != null)

@@ -35,7 +35,7 @@ namespace Bieniol.Base.Repository
         /// </summary>
         /// <param name="id">Entity id</param>
         /// <returns>found entity</returns>
-        TEntity GetEntity(TKey id);
+        Task<TEntity> GetEntityAsync(TKey id);
         /// <summary>
         /// memory consuming method not recommended
         /// </summary>
