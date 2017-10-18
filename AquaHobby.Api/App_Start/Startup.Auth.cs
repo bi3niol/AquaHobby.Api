@@ -28,7 +28,6 @@ namespace AquaHobby.Api
             // Skonfiguruj kontekst bazy danych i menedżera użytkowników, aby użyć jednego wystąpienia na żądanie
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-
             // Zezwalaj aplikacji na przechowywanie w pliku cookie informacji o zalogowanym użytkowniku
             // oraz na tymczasowe przechowywanie w pliku cookie informacji o użytkowniku logującym się przy użyciu dostawcy logowania innego producenta
             app.UseCookieAuthentication(new CookieAuthenticationOptions());

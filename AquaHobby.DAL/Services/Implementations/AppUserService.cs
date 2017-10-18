@@ -18,14 +18,16 @@ namespace AquaHobby.DAL.Services.Implementations
             UnitOfWork = uof;
         }
 
-        public void AddAquarium(Aquarium aquarium, string userId)
+        public long AddAquarium(Aquarium aquarium, string userId)
         {
             if (aquarium!=null && aquarium.Id != 0)
             {
                 aquarium.UserId = userId;
                 UnitOfWork.AquariumsRepository.Update(aquarium);
                 UnitOfWork.Save();
+                return aquarium.Id;
             }
+            return -1;
         }
 
         public bool AddGallery(Gallery gallery, string userId)
@@ -43,14 +45,12 @@ namespace AquaHobby.DAL.Services.Implementations
             return AddGallery(gallery, userId);
         }
 
-        public void AddNewAquarium(Aquarium aquarium, string userId)
+        public long AddNewAquarium(Aquarium aquarium, string userId)
         {
             aquarium = UnitOfWork.AquariumsRepository.Add(aquarium);
             if (aquarium != null)
-            {
                 aquarium.OwnerId = userId;
-
-            }
+            return AddAquarium(aquarium, userId);
         }
 
         public async Task<AppUser> GetUser(string userId)

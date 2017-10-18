@@ -7,7 +7,7 @@ namespace AquaHobby.Models.Fish
     public class Observation:ObservableEntity<long>
     {
         [ForeignKey("HealthBook")]
-        public long? HealthBookId { get; set; }
+        public long HealthBookId { get; set; }
         [IgnoreDataMember]
         public HealthBook HealthBook { get; set; }
     }

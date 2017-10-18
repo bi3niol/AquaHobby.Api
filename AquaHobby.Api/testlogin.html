@@ -25,14 +25,14 @@
         var tokenKey = "_token";
         var token;
         var headers = {};
-        var user = "bi3niol@gmail.com";
+        var user = "bi3nio1l@gmail.com";
         var pw = "Lol123!@#";
         function remove() {
             var el = $(".my-class").removeClass("my-class");
             console.log("poszlo");
         }
 
-        function registerAccount() {
+        function registerAccount(user,pw) {
             var data = {
                 Email: user,
                 Password: pw,
@@ -48,7 +48,7 @@
                 $("#result").html(JSON.stringify(data));
             }).fail(function (e) { console.log(e) });
         };
-       // registerAccount();
+        registerAccount(user,pw);
         (function logIn(user, password) {
             var loginData = {
                 grant_type: 'password',

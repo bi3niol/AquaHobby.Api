@@ -18,7 +18,7 @@ namespace AquaHobby.Api
         {
             var container = BuildUnityContainer();
 
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            //DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
             return container;
         }
@@ -56,10 +56,12 @@ namespace AquaHobby.Api
             //services
             container.RegisterType<IAppUserService, AppUserService>();
             container.RegisterType<IGalleryService, GalleryService>();
+            container.RegisterType<IAquariumService, AquariumService>();
 
             container.RegisterType<DbContext, AquaHobbyContext>(new PerResolveLifetimeManager());
             container.RegisterType<AppUnityOfWork, AppUnityOfWork>(new PerResolveLifetimeManager());
-            container.RegisterType<IHttpController, ValuesController>("Values");
+            //container.RegisterType<IHttpController, ValuesController>("Values");
+            //container.RegisterType<IHttpController,AccountController>("Account");
         }
     }
 }

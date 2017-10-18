@@ -53,9 +53,11 @@
     <Compile Include="Services\IAppUserService.cs" />
     <Compile Include="Services\IAquariumService.cs" />
     <Compile Include="Services\IGalleryService.cs" />
+    <Compile Include="Services\IHealthBookService.cs" />
     <Compile Include="Services\Implementations\AppUserService.cs" />
     <Compile Include="Services\Implementations\AquariumService.cs" />
     <Compile Include="Services\Implementations\GalleryService.cs" />
+    <Compile Include="Services\Implementations\HealthBookService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

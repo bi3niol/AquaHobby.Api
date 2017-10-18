@@ -17,13 +17,15 @@ namespace AquaHobby.DAL.Services
         /// </summary>
         /// <param name="aquarium">new aquarium</param>
         /// <param name="userId"></param>
-        void AddNewAquarium(Aquarium aquarium, string userId);
+        /// <returns>Id of created aquarium, -1 if not created</returns>
+        long AddNewAquarium(Aquarium aquarium, string userId);
         /// <summary>
         /// add existing aquarium to user
         /// </summary>
         /// <param name="aquarium">existing aquarium in DB</param>
         /// <param name="userId"></param>
-        void AddAquarium(Aquarium aquarium, string userId);
+        /// <returns>Id of added aquarium, -1 if not created</returns>
+        long AddAquarium(Aquarium aquarium, string userId);
 
         /// <summary>
         /// 

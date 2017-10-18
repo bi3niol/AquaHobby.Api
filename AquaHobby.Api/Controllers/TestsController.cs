@@ -63,7 +63,7 @@ namespace AquaHobby.Api.Controllers
             AppUser user;
             try
             {
-                user = UserService.GetUser(identity.Id);
+                user = await UserService.GetUser(identity.Id);
 
             }
             catch (Exception e)

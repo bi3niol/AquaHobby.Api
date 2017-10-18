@@ -35,11 +35,11 @@ namespace AquaHobby.Api.Controllers
         }
 
         //public AccountController(ApplicationUserManager userManager,
-        //    ISecureDataFormat<AuthenticationTicket> accessTokenFormat )
+        //    ISecureDataFormat<AuthenticationTicket> accessTokenFormat/*, IAppUserService userService*/)
         //{
         //    UserManager = userManager;
         //    AccessTokenFormat = accessTokenFormat;
-
+        //    //this.UserService = userService;
         //}
 
         public ApplicationUserManager UserManager

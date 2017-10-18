@@ -12,7 +12,7 @@ namespace AquaHobby.Models.Base
 {
     public class AppEntity<Tkey>:BaseEntity<Tkey>
     {
-       [IgnoreDataMember]
+       //[IgnoreDataMember]
         public string OwnerId { get; set; }
     }
 }
