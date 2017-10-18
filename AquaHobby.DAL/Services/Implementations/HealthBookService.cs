@@ -85,12 +85,28 @@ namespace AquaHobby.DAL.Services.Implementations
 
         public async Task<long> AddIllnessAsync(Illness illness, long healthbookId, string userId)
         {
-            throw new NotImplementedException();
+            var hb = await UnitOfWork.HealthBooksRepository.GetEntityAsync(healthbookId);
+            if (hb == null || hb.OwnerId != userId)
+                return -1;
+            illness.HealthBookId = healthbookId;
+            illness.OwnerId = userId;
+            var ill = UnitOfWork.IllnessesRepository.Add(illness);
+            return ill.Id;
         }
 
         public async Task<bool> EditIllnessAsync(Illness illness, string userId)
         {
-            throw new NotImplementedException();
+            if (illness == null || illness.Id <= 0)
+                return false;
+            var illOwner =await UnitOfWork.IllnessesRepository.
+                GetEntityByExpression(i => i.Id == illness.Id).
+                Select(i => i.OwnerId).FirstOrDefaultAsync();
+            if (illOwner != userId)
+                return false;
+            illness.OwnerId = userId;
+            UnitOfWork.IllnessesRepository.Update(illness);
+            UnitOfWork.Save();
+            return true;
         }
     }
 }

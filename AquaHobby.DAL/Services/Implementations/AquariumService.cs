@@ -118,5 +118,13 @@ namespace AquaHobby.DAL.Services.Implementations
             UnitOfWork.Save();
             return true;
         }
+
+        public async Task<ICollection<Fish>> GetAllFishAsync(long aquariumId)
+        {
+            var fishList = await UnitOfWork.FishRepository.
+                GetEntityByExpression(f => f.AquariumId == aquariumId).
+                ToListAsync();
+            return fishList;
+        }
     }
 }

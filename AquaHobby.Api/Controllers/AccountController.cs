@@ -336,13 +336,13 @@ namespace AquaHobby.Api.Controllers
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
-            user = UserManager.FindByName(model.Email);
+            user = await UserManager.FindByNameAsync(model.Email);
             RegisterAppUser(user);
+
             return Ok();
         }
 
@@ -355,7 +355,7 @@ namespace AquaHobby.Api.Controllers
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
 

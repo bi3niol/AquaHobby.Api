@@ -18,6 +18,8 @@ namespace AquaHobby.Models.Fish
     {
         [Required]
         public string FishName { get; set; }
+        public DateTime BornDate { get; set; }
+        public DateTime? DieDate { get; set; }
 
         [ForeignKey("HealthBook")]
         public long HealthBookId { get; set; }

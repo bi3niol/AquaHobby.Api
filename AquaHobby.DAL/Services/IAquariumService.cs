@@ -48,5 +48,7 @@ namespace AquaHobby.DAL.Services
 
         Task<bool> AddNursing(DateTime date, string food, decimal Quantity, string comment, long aquariumId, string userId);
         Task<bool> AddNursing(Nursing nursing, long aquariumId, string userId);
+
+        Task<ICollection<Fish>> GetAllFishAsync(long aquariumId);
     }
 }
