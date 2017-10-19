@@ -27,6 +27,18 @@ namespace AquaHobby.DAL.Services.Implementations
             return _fish;
         }
 
+        public async Task<bool> EditFish(Fish fish, string userId)
+        {
+            if (fish == null)
+                return false;
+            var _fish = await UnitOfWork.FishRepository.GetEntityAsync(fish.Id);
+            if (_fish == null || _fish.OwnerId != userId)
+                return false;
+            UnitOfWork.FishRepository.Update(fish);
+            UnitOfWork.Save();
+            return true;
+        }
+
         public async Task<bool> FishDied(DateTime date,long fishId,string userId)
         {
             var fish = await UnitOfWork.FishRepository.GetEntityAsync(fishId);
@@ -35,6 +47,11 @@ namespace AquaHobby.DAL.Services.Implementations
             fish.DieDate = date;
             UnitOfWork.Save();
             return true;
+        }
+
+        public async Task<Fish> GetFish(long fishId)
+        {
+            return await UnitOfWork.FishRepository.GetEntityAsync(fishId);
         }
     }
 }

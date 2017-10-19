@@ -102,6 +102,7 @@ namespace AquaHobby.DAL.Services.Implementations
             if (aqua == null || aqua.OwnerId != userId)
                 return false;
             waterChange.OwnerId = userId;
+            waterChange.AquariumId = aquariumId;
             var wCh = UnitOfWork.WaterChangesRepository.Add(waterChange);
             UnitOfWork.Save();
             return true;
@@ -111,7 +112,7 @@ namespace AquaHobby.DAL.Services.Implementations
         {
             if (aqarium == null)
                 return false;
-            var aqua = await UnitOfWork.AquariumsRepository.GetEntityByExpression(a => a.Id == aqarium.Id).FirstOrDefaultAsync();
+            var aqua = await UnitOfWork.AquariumsRepository.GetEntityAsync(aqarium.Id);
             if (aqua == null|| aqua.OwnerId!=userId)
                 return false;
             UnitOfWork.AquariumsRepository.Update(aqarium);//check it
@@ -119,11 +120,11 @@ namespace AquaHobby.DAL.Services.Implementations
             return true;
         }
 
-        public async Task<ICollection<Fish>> GetAllFishAsync(long aquariumId)
+        public async Task<Fish[]> GetAllFishAsync(long aquariumId)
         {
             var fishList = await UnitOfWork.FishRepository.
                 GetEntityByExpression(f => f.AquariumId == aquariumId).
-                ToListAsync();
+                ToArrayAsync();
             return fishList;
         }
     }

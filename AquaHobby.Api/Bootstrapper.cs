@@ -58,6 +58,7 @@ namespace AquaHobby.Api
             container.RegisterType<IGalleryService, GalleryService>();
             container.RegisterType<IAquariumService, AquariumService>();
             container.RegisterType<IHealthBookService, HealthBookService>();
+            container.RegisterType<IFishService, FishService>();
 
             container.RegisterType<DbContext, AquaHobbyContext>(new PerResolveLifetimeManager());
             container.RegisterType<AppUnityOfWork, AppUnityOfWork>(new PerResolveLifetimeManager());

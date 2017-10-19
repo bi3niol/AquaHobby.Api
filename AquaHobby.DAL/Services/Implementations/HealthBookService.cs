@@ -31,17 +31,17 @@ namespace AquaHobby.DAL.Services.Implementations
             return HB;
         }
 
-        public async Task<ICollection<Observation>> GetObservationsAsync(long healthbookId)
+        public async Task<Observation[]> GetObservationsAsync(long healthbookId)
         {
             var query = UnitOfWork.ObservationsRepository.GetEntityByExpression(o => o.HealthBookId == healthbookId);
-            var observations = await query?.ToListAsync();
+            var observations = await query?.ToArrayAsync();
             return observations;
         }
 
-        public async Task<ICollection<Illness>> GetIllnessesAsync(long healthbookId)
+        public async Task<Illness[]> GetIllnessesAsync(long healthbookId)
         {
             var query = UnitOfWork.IllnessesRepository.GetEntityByExpression(o => o.HealthBookId == healthbookId);
-            var illnesses = await query?.ToListAsync();
+            var illnesses = await query?.ToArrayAsync();
             return illnesses;
         }
 
@@ -49,20 +49,20 @@ namespace AquaHobby.DAL.Services.Implementations
         {
             var HB = await UnitOfWork.HealthBooksRepository.GetEntityAsync(healthbookId);
             if (HB == null)
-                return new List<Nursing>();
+                return new Nursing[0];
             await UnitOfWork.context.Entry(HB).Collection(g => g.Nursing).LoadAsync();
             return HB.Nursing;
         }
 
-        public async Task<long> AddObservationAsync(Observation observation, long healthbookId, string userId)
+        public async Task<Observation> AddObservationAsync(Observation observation, long healthbookId, string userId)
         {
             var HB = await UnitOfWork.HealthBooksRepository.GetEntityAsync(healthbookId);
             if (HB.OwnerId != userId)
-                return -1;
+                return null;
             observation.OwnerId = userId;
             observation.HealthBookId = healthbookId;
             var obs = UnitOfWork.ObservationsRepository.Add(observation);
-            return obs.Id;
+            return obs;
         }
 
         public async Task<bool> EditObservationAsync(Observation observation, string userId)
@@ -83,15 +83,15 @@ namespace AquaHobby.DAL.Services.Implementations
             return true;
         }
 
-        public async Task<long> AddIllnessAsync(Illness illness, long healthbookId, string userId)
+        public async Task<Illness> AddIllnessAsync(Illness illness, long healthbookId, string userId)
         {
             var hb = await UnitOfWork.HealthBooksRepository.GetEntityAsync(healthbookId);
             if (hb == null || hb.OwnerId != userId)
-                return -1;
+                return null;
             illness.HealthBookId = healthbookId;
             illness.OwnerId = userId;
             var ill = UnitOfWork.IllnessesRepository.Add(illness);
-            return ill.Id;
+            return ill;
         }
 
         public async Task<bool> EditIllnessAsync(Illness illness, string userId)

@@ -3,6 +3,7 @@ using AquaHobby.Models.User;
 using Bieniol.Base.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
@@ -10,6 +11,7 @@ namespace AquaHobby.Models.Photos
 {
     public class Gallery:AppEntity<long>
     {
+        [Required]
         public string Name { get; set; }
         public List<Photo> Photos { get; set; }
 
@@ -21,6 +23,5 @@ namespace AquaHobby.Models.Photos
         //[ForeignKey("Aquarium")]
         public long? AquariumId { get; set; }
         //public Aquarium Aquarium { get; set; }
-
     }
 }

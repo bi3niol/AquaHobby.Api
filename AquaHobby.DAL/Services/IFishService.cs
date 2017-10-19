@@ -11,5 +11,7 @@ namespace AquaHobby.DAL.Services
     {
         Fish AddFish(Fish fish, string userId);
         Task<bool> FishDied(DateTime date, long fishId, string userId);
+        Task<Fish> GetFish(long fishId);
+        Task<bool> EditFish(Fish fish, string userId);
     }
 }

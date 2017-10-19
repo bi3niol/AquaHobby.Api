@@ -1,5 +1,4 @@
 ﻿using AquaHobby.Models.Base;
-using Bieniol.Base.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;

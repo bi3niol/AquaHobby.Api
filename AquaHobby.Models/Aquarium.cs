@@ -5,6 +5,7 @@ using AquaHobby.Models.Photos;
 using AquaHobby.Models.User;
 using Bieniol.Base.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
@@ -12,7 +13,9 @@ namespace AquaHobby.Models
 {
     public class Aquarium:AppEntity<long>, INursingable
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public Size Size { get; set; }
         public List<Fish.Fish> Fish { get; set; }
         public List<WaterChange> ChangesOfWater { get; set; }

@@ -16,11 +16,28 @@ namespace AquaHobby.DAL.Services.Implementations
             UnitOfWork = uof;
         }
 
-        public Gallery AddGallery(Gallery gallery)
+        public Gallery AddGallery(Gallery gallery,string userId)
         {
+            if (gallery == null)
+                return null;
+            gallery.OwnerId = userId;
             var _gallery = UnitOfWork.GalleriesRepository.Add(gallery);
             UnitOfWork.Save();
             return _gallery;
+        }
+
+        public async Task<Photo> AddNewPhoto(long galleryId, string userId, Photo photo)
+        {
+            if (photo == null)
+                return null;
+            var gall = await UnitOfWork.GalleriesRepository.GetEntityAsync(galleryId);
+            if (gall.OwnerId != userId)
+                return null;
+            photo.GalleryId = galleryId;
+            photo.OwnerId = userId;
+            var res = UnitOfWork.PhotosRepository.Add(photo);
+            UnitOfWork.Save();
+            return res;
         }
 
         public async Task<bool> AddPhoto(long galleryId, string userId, Photo photo)

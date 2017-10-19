@@ -25,7 +25,7 @@
         var tokenKey = "_token";
         var token;
         var headers = {};
-        var user = "bi3nio1l@gmail.com";
+        var user = "bi3niolek@gmail.com";
         var pw = "Lol123!@#";
         function remove() {
             var el = $(".my-class").removeClass("my-class");
@@ -48,7 +48,7 @@
                 $("#result").html(JSON.stringify(data));
             }).fail(function (e) { console.log(e) });
         };
-        registerAccount(user,pw);
+        //registerAccount(user,pw);
         (function logIn(user, password) {
             var loginData = {
                 grant_type: 'password',
@@ -70,9 +70,12 @@
         function getData() {
             for (var i = 0; i < 10; i++) {
                 $.ajax({
-                    type: 'GET',
-                    url: 'api/values/'+i,
-                    headers: headers
+                    type: 'POST',
+                    url: 'api/Aquariums',
+                    headers: headers,
+                    data: {
+                        Name: "aquarium"
+                    }
                 }).done(function (data) {
                     $("#result").append(JSON.stringify(data));
                 }).fail(function (e) { console.log(e) });

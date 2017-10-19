@@ -18,6 +18,7 @@ namespace AquaHobby.Models.Fish
     {
         [Required]
         public string FishName { get; set; }
+        [Required]
         public DateTime BornDate { get; set; }
         public DateTime? DieDate { get; set; }
 

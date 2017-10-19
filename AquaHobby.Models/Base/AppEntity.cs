@@ -1,12 +1,4 @@
-﻿using AquaHobby.Models.User;
-using Bieniol.Base.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bieniol.Base.Models;
 
 namespace AquaHobby.Models.Base
 {

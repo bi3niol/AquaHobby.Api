@@ -16,7 +16,9 @@ namespace AquaHobby.DAL.Services
 
         Task<Photo[]> GetGalleryPhotosAsync(long galleryId);
 
-        Gallery AddGallery(Gallery gallery);
+        Gallery AddGallery(Gallery gallery, string userId);
+
+        Task<Photo> AddNewPhoto(long galleryId, string userId, Photo photo);
 
         /// <summary>
         /// 
