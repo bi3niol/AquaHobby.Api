@@ -110,6 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\containers\App.js" />
+    <Content Include="app\containers\test.js" />
+    <Content Include="app\containers\test3.js" />
+    <Content Include="app\containers\test2.js" />
     <Content Include="app\index.js" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
