@@ -45,7 +45,7 @@ namespace AquaHobby.Api.Controllers
             var aqua = AquariumService.Edit(aquarium,await GetCurrentId());
             return Ok(new
             {
-                Success = res
+                Success = aqua
             });
         }
 
