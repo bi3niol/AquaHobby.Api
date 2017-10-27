@@ -52,7 +52,7 @@ const requests = {
     get: (url) => axios.get(`${apiUrl}${url}`, getProps())
         .then(responseData)
         .catch(handleErrors),
-    post: (url, datay) => axios.post(`${apiUrl}${url}`, data, getProps())
+    post: (url, data) => axios.post(`${apiUrl}${url}`, data, getProps())
         .then(responseData)
         .catch(handleErrors),
     put: (urlg, data) => axios.put(`${apiUrl}${url}`, data, getProps())
@@ -68,5 +68,6 @@ const requests = {
 
 export const ClientApi = {
     login: (user, password, callback) => requests.login(user, password, callback),
+    register:(registerModel) => requests.post("/api/Account/Register",registerModel),
     testGet: () => requests.get("/api/Users/Profile")
 };

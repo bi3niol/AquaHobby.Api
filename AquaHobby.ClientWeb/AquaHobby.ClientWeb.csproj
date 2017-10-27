@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\ApiProxy.js" />
+    <Content Include="app\components\Register.js" />
     <Content Include="app\containers\App.js" />
     <Content Include="app\containers\test.js" />
     <Content Include="app\containers\test3.js" />

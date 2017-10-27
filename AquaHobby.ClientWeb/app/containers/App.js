@@ -5,6 +5,7 @@ import Test2 from "./test2";
 import Test3 from "./test3";
 import { ClientApi as Api } from "../ApiProxy";
 import { BrowserRouter as Router, Route, Link, browserHistory, IndexRoute } from 'react-router-dom';
+import Register from "../components/Register";
 
 export default class App extends Component {
  
@@ -15,13 +16,14 @@ export default class App extends Component {
             password:props.password,
             isLoged: false
         };
+        //var that = this;
+        //Api.login(this.state.user, this.state.password, (success) => {
+        //    console.log("jestesmy w callback");
+        //    that.setState({ isLoged: success });
+        //});
     }
     componentDidMount() {
-        var that = this;
-        Api.login(this.state.user, this.state.password, (success) => {
-            console.log("jestesmy w callback");
-            that.setState({ isLoged: success });
-        });
+       
     }
     render() {
         return (
@@ -37,6 +39,7 @@ export default class App extends Component {
                     <Route path="/test2" component={Test2} />
                     <Route path="/test3" component={Test3} />
                     {this.state.isLoged ? "U Are Loged In" : "Sorry u are not loged"}
+                    <Register/>
                 </div>
             </Router>
         );
