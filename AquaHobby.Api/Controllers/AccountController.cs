@@ -70,7 +70,12 @@ namespace AquaHobby.Api.Controllers
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }
-
+        [HttpGet]
+        public bool Login()
+        {
+            var res = User.Identity.IsAuthenticated;
+            return res;
+        }
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()

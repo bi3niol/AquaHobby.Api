@@ -32,7 +32,6 @@ namespace AquaHobby.Api.Providers
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
-
             if (user == null)
             {
                 context.SetError("invalid_grant", "Nazwa użytkownika lub hasło są niepoprawne.");
@@ -49,7 +48,20 @@ namespace AquaHobby.Api.Providers
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
+        public override Task MatchEndpoint(OAuthMatchEndpointContext context)
+        {
+            if (context.OwinContext.Request.Method == "OPTIONS" && context.IsTokenEndpoint)
+            {
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Methods", new[] { "POST" });
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "accept", "authorization", "content-type" });
+                context.OwinContext.Response.StatusCode = 200;
+                context.RequestCompleted();
 
+                return Task.FromResult<object>(null);
+            }
+
+            return base.MatchEndpoint(context);
+        }
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
             foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)

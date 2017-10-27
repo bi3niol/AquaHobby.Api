@@ -79,6 +79,8 @@ namespace AquaHobby.DAL.Services.Implementations
         public async Task<AppUser> GetUserWithProperiesAsync(string userId)
         {            
             var user = await UnitOfWork.UsersRepository.GetEntityAsync(userId);
+            if (user == null)
+                return null;
             var entry = UnitOfWork.context.Entry(user);
             await entry.Collection(u => u.Aquariums).LoadAsync();
             await entry.Collection(u => u.Gallery).LoadAsync();
