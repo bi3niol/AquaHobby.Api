@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import ReactDOM from "react-dom";
 import App from "./containers/App";
-ReactDOM.render(<App user="Bi3niol@gmail.com" password="Lol123!@#"/> , document.getElementById('root'))
+ReactDOM.render(<App user="testweb@web.pl" password="Test123!@#"/> , document.getElementById('root'))
 
     //< Router history={browserHistory} >
     //    <Route path="/" component={App}>

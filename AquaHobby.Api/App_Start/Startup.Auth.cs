@@ -47,7 +47,6 @@ namespace AquaHobby.Api
 
             // Zezwalaj aplikacji na uwierzytelnianie użytkowników za pomocą tokenów bearer
             app.UseOAuthBearerTokens(OAuthOptions);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             // Usuń znaczniki komentarza z poniższych wierszy, aby włączyć logowanie przy użyciu innych dostawców logowania
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",

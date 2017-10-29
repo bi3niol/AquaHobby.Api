@@ -13,8 +13,8 @@ namespace AquaHobby.Api
         public static void Register(HttpConfiguration config)
         {
             // Konfiguracja i usługi składnika Web API
-            var cors = new EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(cors);
+            //var cors = new EnableCorsAttribute("*", "*", "*");
+            //config.EnableCors(cors);
             //UnityContainer container = GetContainer();
             config.DependencyResolver = new UnityResolver(Bootstrapper.Initialise());
             // Skonfiguruj składnik Web API, aby korzystał tylko z uwierzytelniania za pomocą tokenów bearer.

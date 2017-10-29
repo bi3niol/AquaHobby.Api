@@ -7,16 +7,7 @@ const handleErrors = err => {
 };
 
 const responseData = res => res.data;
-const loginData = (user, password) => {
-    var data = {
-        grant_type: 'password',
-        username: user,
-        password: password
-    };
-    console.log("login");
-    console.log(data);
-    return data;
-};
+
 const tokenKey = "_token";
 const headers = () => {
     var _headers = {};
@@ -25,6 +16,9 @@ const headers = () => {
         appToken = sessionStorage.getItem(tokenKey);
     if (appToken)
         _headers.Authorization = 'Bearer ' + appToken;
+    console.log("headers");
+    console.log(_headers);
+
     return _headers;
 };
 const getProps = () => {
@@ -38,8 +32,11 @@ const requests = {
             "Content-Type": "application/x-www-form-urlencoded"
         }
     }).then((response) => {
+        console.log(response.data.access_token);
+
         if (response.data && response.data.access_token) {
             sessionStorage.setItem(tokenKey, response.data.access_token);
+            console.log("token set:");
             callback(true);
         }
         else

@@ -26,10 +26,6 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "prod": "webpack --env.NODE_ENV=production --config webpack.config.js --optimize-minimize"
-  },
-  "-vs-binding": {
-    "AfterBuild": [
-      "build"
-    ]
   }
+, "-vs-binding":{"AfterBuild":["build"]}
 }
