@@ -13195,8 +13195,6 @@ var App = function (_Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             this.setState({ isLogged: _ApiProxy.ClientApi.IsLogged() });
-            //this.setState({isLogged:true});
-            console.log("componentDidMount");
         }
     }, {
         key: "render",
@@ -14239,16 +14237,20 @@ var AppNavPanel = function (_Component2) {
                             "a",
                             { className: "nav-search" },
                             _react2.default.createElement(
-                                "div",
-                                { className: "input-group" },
-                                _react2.default.createElement("input", { className: "form-control", name: "Filter", placeholder: "Szukaj hobbist\xF3w...", type: "text", value: this.state.Filter, onChange: this.inputPropChange }),
+                                "form",
+                                null,
                                 _react2.default.createElement(
                                     "div",
-                                    { className: "input-group-btn" },
+                                    { className: "input-group" },
+                                    _react2.default.createElement("input", { className: "form-control", name: "Filter", placeholder: "Szukaj hobbist\xF3w...", type: "text", value: this.state.Filter, onChange: this.inputPropChange }),
                                     _react2.default.createElement(
-                                        "button",
-                                        { className: "btn btn-default" },
-                                        "Szukaj"
+                                        "div",
+                                        { className: "input-group-btn" },
+                                        _react2.default.createElement(
+                                            "button",
+                                            { type: "submit", className: "btn btn-default" },
+                                            "Szukaj"
+                                        )
                                     )
                                 )
                             )

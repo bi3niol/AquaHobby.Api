@@ -69,14 +69,16 @@ class AppNavPanel extends Component{
                 </li>
                 <li>  
                  <a  className="nav-search">
+                     <form>
                     <div className="input-group">
                         <input className="form-control" name="Filter" placeholder="Szukaj hobbistów..." type="text" value={this.state.Filter} onChange={this.inputPropChange}/>
                         <div className="input-group-btn">
-                            <button className="btn btn-default">
+                            <button type="submit" className="btn btn-default">
                             Szukaj
                             </button>
                         </div>
                     </div>
+                    </form>
                     </a>
                 </li>
                 <li>     
