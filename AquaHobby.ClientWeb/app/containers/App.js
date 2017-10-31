@@ -10,24 +10,29 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogged: false
+            isLogged: Api.IsLogged()
         };
+        this.LoginCallBack = this.LoginCallBack.bind(this);
     }
-    LogginCallBack() {
-
+    LoginCallBack(success,response) {
+        console.log(success);
+        this.setState({isLogged:success?true:false})
+        console.log(response);
     }
     componentDidMount() {
-
+        this.setState({isLogged: Api.IsLogged()});
+        //this.setState({isLogged:true});
+        console.log("componentDidMount");
     }
     render() {
         var dom;
-        if (this.state.isLoged)
+        if (this.state.isLogged)
             dom = <div></div>;
         else
             dom = <HelloPage />;
         return (
             <div className="container">
-                <NavPanel isLogged={this.state.isLogged} />
+                <NavPanel loginCallBack={this.LoginCallBack} isLogged={this.state.isLogged} />
                 <div className="app-content">
                     {dom}
                 </div>

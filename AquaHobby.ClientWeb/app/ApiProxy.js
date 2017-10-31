@@ -31,21 +31,16 @@ const requests = {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         }
-    }).then((response) => {
-        console.log(response.data.access_token);
-
-        if (response.data && response.data.access_token) {
-            sessionStorage.setItem(tokenKey, response.data.access_token);
-            console.log("token set:");
-            callback(true);
+    }).then(function(res){
+        var _res={success:false};
+        if(res&&res.data&&res.data.access_token){
+            sessionStorage.setItem(tokenKey,res.data.access_token);
+            _res.success = true;
         }
-        else
-            callback(false);
-    }).catch((e) => {
-        console.log("CATCH");
-        console.log(e);
-        callback(false);
-    }),
+        _res.data =responseData(res); 
+        return _res;
+    })
+        .catch(handleErrors),
     get: (url) => axios.get(`${apiUrl}${url}`, getProps())
         .then(responseData)
         .catch(handleErrors),
@@ -65,6 +60,9 @@ const requests = {
 
 export const ClientApi = {
     login: (user, password, callback) => requests.login(user, password, callback),
+    logout: () => sessionStorage.removeItem(tokenKey),
+    navinfo: ()=> requests.get("/api/navinfo"),
     register:(registerModel) => requests.post("/api/Account/Register",registerModel),
-    testGet: () => requests.get("/api/Users/Profile")
+    testGet: () => requests.get("/api/Users/Profile"),
+    IsLogged:() => sessionStorage.getItem(tokenKey)!=null
 };

@@ -5317,19 +5317,15 @@ var requests = {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
-        }).then(function (response) {
-            console.log(response.data.access_token);
-
-            if (response.data && response.data.access_token) {
-                sessionStorage.setItem(tokenKey, response.data.access_token);
-                console.log("token set:");
-                callback(true);
-            } else callback(false);
-        }).catch(function (e) {
-            console.log("CATCH");
-            console.log(e);
-            callback(false);
-        });
+        }).then(function (res) {
+            var _res = { success: false };
+            if (res && res.data && res.data.access_token) {
+                sessionStorage.setItem(tokenKey, res.data.access_token);
+                _res.success = true;
+            }
+            _res.data = responseData(res);
+            return _res;
+        }).catch(handleErrors);
     },
     get: function get(url) {
         return _axios2.default.get("" + apiUrl + url, getProps()).then(responseData).catch(handleErrors);
@@ -5352,11 +5348,20 @@ var ClientApi = exports.ClientApi = {
     login: function login(user, password, callback) {
         return requests.login(user, password, callback);
     },
+    logout: function logout() {
+        return sessionStorage.removeItem(tokenKey);
+    },
+    navinfo: function navinfo() {
+        return requests.get("/api/navinfo");
+    },
     register: function register(registerModel) {
         return requests.post("/api/Account/Register", registerModel);
     },
     testGet: function testGet() {
         return requests.get("/api/Users/Profile");
+    },
+    IsLogged: function IsLogged() {
+        return sessionStorage.getItem(tokenKey) != null;
     }
 };
 
@@ -5774,7 +5779,7 @@ Router.childContextTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path_to_regexp__);
 
 
@@ -13173,26 +13178,35 @@ var App = function (_Component) {
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
         _this.state = {
-            isLogged: false
+            isLogged: _ApiProxy.ClientApi.IsLogged()
         };
+        _this.LoginCallBack = _this.LoginCallBack.bind(_this);
         return _this;
     }
 
     _createClass(App, [{
-        key: "LogginCallBack",
-        value: function LogginCallBack() {}
+        key: "LoginCallBack",
+        value: function LoginCallBack(success, response) {
+            console.log(success);
+            this.setState({ isLogged: success ? true : false });
+            console.log(response);
+        }
     }, {
         key: "componentDidMount",
-        value: function componentDidMount() {}
+        value: function componentDidMount() {
+            this.setState({ isLogged: _ApiProxy.ClientApi.IsLogged() });
+            //this.setState({isLogged:true});
+            console.log("componentDidMount");
+        }
     }, {
         key: "render",
         value: function render() {
             var dom;
-            if (this.state.isLoged) dom = _react2.default.createElement("div", null);else dom = _react2.default.createElement(_HelloPage2.default, null);
+            if (this.state.isLogged) dom = _react2.default.createElement("div", null);else dom = _react2.default.createElement(_HelloPage2.default, null);
             return _react2.default.createElement(
                 "div",
                 { className: "container" },
-                _react2.default.createElement(_NavPanel2.default, { isLogged: this.state.isLogged }),
+                _react2.default.createElement(_NavPanel2.default, { loginCallBack: this.LoginCallBack, isLogged: this.state.isLogged }),
                 _react2.default.createElement(
                     "div",
                     { className: "app-content" },
@@ -14104,6 +14118,8 @@ var _ApiProxy = __webpack_require__(43);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -14116,19 +14132,14 @@ var NavPanel = function (_Component) {
     function NavPanel(props) {
         _classCallCheck(this, NavPanel);
 
-        var _this = _possibleConstructorReturn(this, (NavPanel.__proto__ || Object.getPrototypeOf(NavPanel)).call(this, props));
-
-        _this.state = {
-            isLogged: props.isLogged
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (NavPanel.__proto__ || Object.getPrototypeOf(NavPanel)).call(this, props));
     }
 
     _createClass(NavPanel, [{
         key: "render",
         value: function render() {
             var dom;
-            if (this.state.isLogged) dom = _react2.default.createElement("ul", null);else dom = _react2.default.createElement(LogginPanel, null);
+            if (this.props.isLogged) dom = _react2.default.createElement(AppNavPanel, { loginCallBack: this.props.loginCallBack });else dom = _react2.default.createElement(LoginPanel, { loginCallBack: this.props.loginCallBack });
             return _react2.default.createElement(
                 "div",
                 { className: "navbar navbar-default navbar-fixed-top" },
@@ -14159,65 +14170,114 @@ var NavPanel = function (_Component) {
 
 exports.default = NavPanel;
 
-var LogginPanel = function (_Component2) {
-    _inherits(LogginPanel, _Component2);
+var AppNavPanel = function (_Component2) {
+    _inherits(AppNavPanel, _Component2);
 
-    function LogginPanel(props) {
-        _classCallCheck(this, LogginPanel);
+    function AppNavPanel(props) {
+        _classCallCheck(this, AppNavPanel);
 
-        var _this2 = _possibleConstructorReturn(this, (LogginPanel.__proto__ || Object.getPrototypeOf(LogginPanel)).call(this, props));
+        var _this3 = _possibleConstructorReturn(this, (AppNavPanel.__proto__ || Object.getPrototypeOf(AppNavPanel)).call(this, props));
 
-        _this2.state = {
-            User: "",
-            Password: ""
+        _this3.state = {
+            Filter: "",
+            NavInfo: {
+                Name: "deault"
+            }
         };
-        return _this2;
+        _this3.inputPropChange = _this3.inputPropChange.bind(_this3);
+        _this3.handleLogout = _this3.handleLogout.bind(_this3);
+        return _this3;
     }
 
-    _createClass(LogginPanel, [{
+    _createClass(AppNavPanel, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var _this = this;
+            _ApiProxy.ClientApi.navinfo().then(function (data) {
+                _this.setState({ NavInfo: data });
+            }).catch(function (error) {});
+        }
+    }, {
+        key: "handleLogout",
+        value: function handleLogout(event) {
+            _ApiProxy.ClientApi.logout();
+            this.props.loginCallBack(false, {});
+        }
+    }, {
         key: "inputPropChange",
         value: function inputPropChange(event) {
-            var _this3 = this;
-
             var target = event.target;
-            this.setState(function (prevS) {
-                _this3.state.RegisterModel[target.name] = target.value;
-            });
+            console.log("inputPropChange");
+            this.setState(_defineProperty({}, target.name, target.value));
         }
     }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
-                "ul",
-                { className: "nav navbar-nav navbar-right" },
+                "div",
+                { className: "navbar-nav navbar-right" },
                 _react2.default.createElement(
-                    "li",
-                    null,
+                    "ul",
+                    { className: "nav navbar-nav" },
                     _react2.default.createElement(
-                        "a",
-                        null,
-                        _react2.default.createElement("input", { className: "form-control", name: "User", placeholder: "Email...", type: "email", value: this.state.User, onChange: this.inputPropChange })
-                    )
-                ),
-                _react2.default.createElement(
-                    "li",
-                    null,
-                    _react2.default.createElement(
-                        "a",
-                        null,
-                        _react2.default.createElement("input", { className: "form-control", name: "Password", placeholder: "Has\u0142o...", type: "password", value: this.state.Password, onChange: this.inputPropChange })
-                    )
-                ),
-                _react2.default.createElement(
-                    "li",
-                    null,
-                    _react2.default.createElement(
-                        "a",
+                        "li",
                         null,
                         _react2.default.createElement(
-                            "div",
-                            { className: "btn-success btn", onClick: this.handleLogin },
-                            "Zaloguj si\u0119"
+                            "a",
+                            null,
+                            _react2.default.createElement(
+                                "div",
+                                { className: "btn" },
+                                this.state.NavInfo.Name
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "li",
+                        null,
+                        _react2.default.createElement(
+                            "a",
+                            { className: "nav-search" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "input-group" },
+                                _react2.default.createElement("input", { className: "form-control", name: "Filter", placeholder: "Szukaj hobbist\xF3w...", type: "text", value: this.state.Filter, onChange: this.inputPropChange }),
+                                _react2.default.createElement(
+                                    "div",
+                                    { className: "input-group-btn" },
+                                    _react2.default.createElement(
+                                        "button",
+                                        { className: "btn btn-default" },
+                                        "Szukaj"
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "li",
+                        null,
+                        _react2.default.createElement(
+                            "a",
+                            null,
+                            _react2.default.createElement(
+                                "div",
+                                { className: "btn" },
+                                "Strona g\u0142\xF3wna"
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "li",
+                        null,
+                        _react2.default.createElement(
+                            "a",
+                            null,
+                            _react2.default.createElement(
+                                "div",
+                                { disabled: this.state.IsProccessing, className: "btn-success btn", onClick: this.handleLogout },
+                                "Wyloguj si\u0119"
+                            )
                         )
                     )
                 )
@@ -14225,7 +14285,113 @@ var LogginPanel = function (_Component2) {
         }
     }]);
 
-    return LogginPanel;
+    return AppNavPanel;
+}(_react.Component);
+
+var LoginPanel = function (_Component3) {
+    _inherits(LoginPanel, _Component3);
+
+    function LoginPanel(props) {
+        _classCallCheck(this, LoginPanel);
+
+        var _this4 = _possibleConstructorReturn(this, (LoginPanel.__proto__ || Object.getPrototypeOf(LoginPanel)).call(this, props));
+
+        _this4.state = {
+            IsProccessing: false,
+            User: "",
+            Password: "",
+            HasError: false,
+            ErrorMessages: []
+        };
+        _this4.inputPropChange = _this4.inputPropChange.bind(_this4);
+        _this4.handleLogin = _this4.handleLogin.bind(_this4);
+        return _this4;
+    }
+
+    _createClass(LoginPanel, [{
+        key: "inputPropChange",
+        value: function inputPropChange(event) {
+            var target = event.target;
+            console.log("inputPropChange");
+            this.setState(_defineProperty({}, target.name, target.value));
+        }
+    }, {
+        key: "handleLogin",
+        value: function handleLogin(event) {
+            var _this = this;
+            this.setState({ IsProccessing: true });
+            _ApiProxy.ClientApi.login(this.state.User, this.state.Password).then(function (res) {
+                _this.setState({ IsProccessing: false, HasError: false, ErrorMessages: [] });
+                _this.props.loginCallBack(res.success, res.data);
+            }).catch(function (error) {
+                _this.setState({ IsProccessing: false, HasError: true, ErrorMessages: ["Upewnij się, podano prawidłowy e-mail i hasło..."] });
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "navbar-right" },
+                _react2.default.createElement(
+                    "form",
+                    null,
+                    _react2.default.createElement(
+                        "ul",
+                        { className: this.state.HasError ? "has-error nav navbar-nav" : "nav navbar-nav" },
+                        _react2.default.createElement(
+                            "li",
+                            null,
+                            _react2.default.createElement(
+                                "a",
+                                null,
+                                _react2.default.createElement("input", { className: "form-control", name: "User", placeholder: "Email...", type: "email", value: this.state.User, onChange: this.inputPropChange })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "li",
+                            null,
+                            _react2.default.createElement(
+                                "a",
+                                null,
+                                _react2.default.createElement("input", { className: "form-control", name: "Password", placeholder: "Has\u0142o...", type: "password", value: this.state.Password, onChange: this.inputPropChange })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "li",
+                            null,
+                            _react2.default.createElement(
+                                "a",
+                                null,
+                                _react2.default.createElement(
+                                    "button",
+                                    { type: "submit", disabled: this.state.IsProccessing, className: "btn-success btn", onClick: this.handleLogin },
+                                    "Zaloguj si\u0119"
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    null,
+                    _react2.default.createElement(
+                        "div",
+                        { className: this.state.HasError ? "has-error tooltip right in" : "hide" },
+                        this.state.ErrorMessages.map(function (mess, k) {
+                            return _react2.default.createElement(
+                                "label",
+                                { key: k, className: "control-label" },
+                                mess
+                            );
+                        })
+                    )
+                )
+            );
+        }
+    }]);
+
+    return LoginPanel;
 }(_react.Component);
 
 /***/ }),
@@ -17047,9 +17213,18 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 
 /***/ }),
 /* 161 */
+/***/ (function(module, exports) {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(162)
+var isarray = __webpack_require__(161)
 
 /**
  * Expose `pathToRegexp`.
@@ -17475,15 +17650,6 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
-
-
-/***/ }),
-/* 162 */
-/***/ (function(module, exports) {
-
-module.exports = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]';
-};
 
 
 /***/ }),

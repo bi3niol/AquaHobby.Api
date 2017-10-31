@@ -51,5 +51,12 @@ namespace AquaHobby.Api.Controllers
             var user = await UserService.GetUserWithProperiesAsync(await GetCurrentId());
             return user;
         }
+        [HttpGet]
+        [Route("api/navinfo")]
+        public async Task<object> NavInfo()
+        {
+            var user = await UserService.GetUser(await GetCurrentId());
+            return user;
+        }
     }
 }
