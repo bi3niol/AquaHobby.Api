@@ -113,10 +113,9 @@
     <Content Include="app\components\NavPanel.js" />
     <Content Include="app\components\RegisterPanel.js" />
     <Content Include="app\containers\App.js" />
-    <Content Include="app\containers\test.js" />
-    <Content Include="app\containers\test3.js" />
-    <Content Include="app\containers\test2.js" />
+    <Content Include="app\containers\HelloPage.js" />
     <Content Include="app\index.js" />
+    <Content Include="app\Validators.js" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\webclient.css" />
     <Content Include="index.html" />
