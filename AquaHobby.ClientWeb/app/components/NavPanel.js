@@ -19,8 +19,15 @@ export default class NavPanel extends Component {
                 <div className="container">
                     <div className="navbar-header">
                         <a className="navbar-brand" href="#">Aqua Hobby</a>
+                        <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+                        </button>
                     </div>
-                    {dom}
+                    <div className="collapse navbar-collapse" id="myNavbar">
+                        {dom}
+                    </div>
                 </div>
             </nav>
         );
@@ -88,7 +95,7 @@ class AppNavPanel extends Component {
                     </li>
                     <li className="dropdown">
                         <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                            <span className="glyphicon glyphicon-chevron-down" style={{marginTop:"7px"}}></span>
+                            <span className="glyphicon glyphicon-chevron-down" style={{ marginTop: "7px" }}></span>
                         </a>
                         <ul className="dropdown-menu">
                             <li>
@@ -137,7 +144,7 @@ class LoginPanel extends Component {
 
     render() {
         return (
-            <div className="navbar-right">
+            <div className="nav navbar-nav navbar-right">
                 <form>
                     <ul className={this.state.HasError ? "has-error nav navbar-nav" : "nav navbar-nav"}>
                         <li>

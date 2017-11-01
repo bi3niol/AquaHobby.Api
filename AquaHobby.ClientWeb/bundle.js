@@ -14179,9 +14179,20 @@ var NavPanel = function (_Component) {
                             "a",
                             { className: "navbar-brand", href: "#" },
                             "Aqua Hobby"
+                        ),
+                        _react2.default.createElement(
+                            "button",
+                            { type: "button", className: "navbar-toggle", "data-toggle": "collapse", "data-target": "#myNavbar" },
+                            _react2.default.createElement("span", { className: "icon-bar" }),
+                            _react2.default.createElement("span", { className: "icon-bar" }),
+                            _react2.default.createElement("span", { className: "icon-bar" })
                         )
                     ),
-                    dom
+                    _react2.default.createElement(
+                        "div",
+                        { className: "collapse navbar-collapse", id: "myNavbar" },
+                        dom
+                    )
                 )
             );
         }
@@ -14371,7 +14382,7 @@ var LoginPanel = function (_Component3) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "navbar-right" },
+                { className: "nav navbar-nav navbar-right" },
                 _react2.default.createElement(
                     "form",
                     null,
