@@ -21,6 +21,7 @@ export default class App extends Component {
     }
     componentDidMount() {
         this.setState({isLogged: Api.IsLogged()});
+        //this.setState({ isLogged: true});
     }
     render() {
         var dom;

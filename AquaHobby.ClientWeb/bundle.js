@@ -5296,10 +5296,35 @@ var responseData = function responseData(res) {
 };
 
 var tokenKey = "_token";
+var setCookie = function setCookie(name, val, time) {
+    var data = new Date();
+    if (time) {
+        data.setTime(data.getTime() + time);
+        var expires = "; expires=" + data.toGMTString();
+    } else {
+        var expires = "";
+    }
+    console.log("cookie create");
+    console.log(name + "=" + val + expires + "; path=/");
+    document.cookie = name + "=" + val + expires + "; path=/";
+};
+var removeCookie = function removeCookie(name) {
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT; ";
+};
+var getCookie = function getCookie(name) {
+    var cookies = document.cookie.split("; ");
+    var l = cookies.length;
+    for (var i = 0; i < l; i++) {
+        var ctab = cookies[i].split("=");
+        if (ctab[0] === name) return ctab[1];
+    }
+    return null;
+};
 var headers = function headers() {
     var _headers = {};
     var appToken = "";
-    if (sessionStorage.getItem(tokenKey)) appToken = sessionStorage.getItem(tokenKey);
+    var tkn = getCookie(tokenKey);
+    if (tkn) appToken = tkn;
     if (appToken) _headers.Authorization = 'Bearer ' + appToken;
     console.log("headers");
     console.log(_headers);
@@ -5319,8 +5344,10 @@ var requests = {
             }
         }).then(function (res) {
             var _res = { success: false };
+            console.log(res);
             if (res && res.data && res.data.access_token) {
-                sessionStorage.setItem(tokenKey, res.data.access_token);
+                setCookie(tokenKey, res.data.access_token, res.data.expires_in);
+                //sessionStorage.setItem(tokenKey,res.data.access_token);
                 _res.success = true;
             }
             _res.data = responseData(res);
@@ -5349,8 +5376,8 @@ var ClientApi = exports.ClientApi = {
         return requests.login(user, password, callback);
     },
     logout: function logout() {
-        return sessionStorage.removeItem(tokenKey);
-    },
+        return removeCookie(tokenKey);
+    }, //sessionStorage.removeItem(tokenKey),
     navinfo: function navinfo() {
         return requests.get("/api/navinfo");
     },
@@ -5361,8 +5388,8 @@ var ClientApi = exports.ClientApi = {
         return requests.get("/api/Users/Profile");
     },
     IsLogged: function IsLogged() {
-        return sessionStorage.getItem(tokenKey) != null;
-    }
+        return getCookie(tokenKey) != null;
+    } //sessionStorage.getItem(tokenKey)!=null
 };
 
 /***/ }),
@@ -5779,7 +5806,7 @@ Router.childContextTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path_to_regexp__);
 
 
@@ -13195,6 +13222,7 @@ var App = function (_Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             this.setState({ isLogged: _ApiProxy.ClientApi.IsLogged() });
+            //this.setState({ isLogged: true});
         }
     }, {
         key: "render",
@@ -14139,7 +14167,7 @@ var NavPanel = function (_Component) {
             var dom;
             if (this.props.isLogged) dom = _react2.default.createElement(AppNavPanel, { loginCallBack: this.props.loginCallBack });else dom = _react2.default.createElement(LoginPanel, { loginCallBack: this.props.loginCallBack });
             return _react2.default.createElement(
-                "div",
+                "nav",
                 { className: "navbar navbar-default navbar-fixed-top" },
                 _react2.default.createElement(
                     "div",
@@ -14153,11 +14181,7 @@ var NavPanel = function (_Component) {
                             "Aqua Hobby"
                         )
                     ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "navbar-collapse collapse" },
-                        dom
-                    )
+                    dom
                 )
             );
         }
@@ -14235,21 +14259,25 @@ var AppNavPanel = function (_Component2) {
                         null,
                         _react2.default.createElement(
                             "a",
-                            { className: "nav-search" },
+                            null,
                             _react2.default.createElement(
                                 "form",
                                 null,
                                 _react2.default.createElement(
                                     "div",
-                                    { className: "input-group" },
-                                    _react2.default.createElement("input", { className: "form-control", name: "Filter", placeholder: "Szukaj hobbist\xF3w...", type: "text", value: this.state.Filter, onChange: this.inputPropChange }),
+                                    { className: "nav-search" },
                                     _react2.default.createElement(
                                         "div",
-                                        { className: "input-group-btn" },
+                                        { className: "input-group" },
+                                        _react2.default.createElement("input", { className: "form-control", name: "Filter", placeholder: "Szukaj hobbist\xF3w...", type: "text", value: this.state.Filter, onChange: this.inputPropChange }),
                                         _react2.default.createElement(
-                                            "button",
-                                            { type: "submit", className: "btn btn-default" },
-                                            "Szukaj"
+                                            "div",
+                                            { className: "input-group-btn" },
+                                            _react2.default.createElement(
+                                                "button",
+                                                { type: "submit", className: "btn btn-default" },
+                                                "Szukaj"
+                                            )
                                         )
                                     )
                                 )
@@ -14271,14 +14299,23 @@ var AppNavPanel = function (_Component2) {
                     ),
                     _react2.default.createElement(
                         "li",
-                        null,
+                        { className: "dropdown" },
                         _react2.default.createElement(
                             "a",
-                            null,
+                            { href: "#", className: "dropdown-toggle", "data-toggle": "dropdown" },
+                            _react2.default.createElement("span", { className: "glyphicon glyphicon-chevron-down", style: { marginTop: "7px" } })
+                        ),
+                        _react2.default.createElement(
+                            "ul",
+                            { className: "dropdown-menu" },
                             _react2.default.createElement(
-                                "div",
-                                { disabled: this.state.IsProccessing, className: "btn-success btn", onClick: this.handleLogout },
-                                "Wyloguj si\u0119"
+                                "li",
+                                null,
+                                _react2.default.createElement(
+                                    "a",
+                                    { href: "#", disabled: this.state.IsProccessing, onClick: this.handleLogout },
+                                    "Wyloguj si\u0119"
+                                )
                             )
                         )
                     )
@@ -14367,7 +14404,7 @@ var LoginPanel = function (_Component3) {
                                 null,
                                 _react2.default.createElement(
                                     "button",
-                                    { type: "submit", disabled: this.state.IsProccessing, className: "btn-success btn", onClick: this.handleLogin },
+                                    { type: "submit", disabled: this.state.IsProccessing, className: "form-control btn-success btn", onClick: this.handleLogin },
                                     "Zaloguj si\u0119"
                                 )
                             )
@@ -17215,18 +17252,9 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 
 /***/ }),
 /* 161 */
-/***/ (function(module, exports) {
-
-module.exports = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
-/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(161)
+var isarray = __webpack_require__(162)
 
 /**
  * Expose `pathToRegexp`.
@@ -17652,6 +17680,15 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
+
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports) {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
 
 
 /***/ }),
