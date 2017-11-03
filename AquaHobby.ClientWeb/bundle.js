@@ -2458,6 +2458,9 @@ var ClientApi = exports.ClientApi = {
     navinfo: function navinfo() {
         return requests.get("/api/navinfo");
     },
+    profile: function profile() {
+        return requests.get("/api/users/profile");
+    },
     register: function register(registerModel) {
         return requests.post("/api/Account/Register", registerModel);
     },
@@ -5865,7 +5868,7 @@ Router.childContextTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path_to_regexp__);
 
 
@@ -15051,19 +15054,54 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UserProfile = function (_Component) {
     _inherits(UserProfile, _Component);
 
-    function UserProfile() {
+    function UserProfile(props) {
         _classCallCheck(this, UserProfile);
 
-        return _possibleConstructorReturn(this, (UserProfile.__proto__ || Object.getPrototypeOf(UserProfile)).apply(this, arguments));
+        var _this2 = _possibleConstructorReturn(this, (UserProfile.__proto__ || Object.getPrototypeOf(UserProfile)).call(this, props));
+
+        _this2.state = {
+            Aquariums: [],
+            Gallery: [],
+            Id: "",
+            Name: ""
+        };
+        return _this2;
     }
 
     _createClass(UserProfile, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var _this = this;
+            _ApiProxy.ClientApi.profile().then(function (data) {
+                _this.setState(data);
+                console.log(_this.state);
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                null,
-                "UserProfile"
+                { className: "row" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    this.state.Name
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-4" },
+                        "left side"
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-8" },
+                        "main content"
+                    )
+                )
             );
         }
     }]);
@@ -17585,9 +17623,18 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 
 /***/ }),
 /* 167 */
+/***/ (function(module, exports) {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(168)
+var isarray = __webpack_require__(167)
 
 /**
  * Expose `pathToRegexp`.
@@ -18013,15 +18060,6 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
-
-
-/***/ }),
-/* 168 */
-/***/ (function(module, exports) {
-
-module.exports = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]';
-};
 
 
 /***/ }),

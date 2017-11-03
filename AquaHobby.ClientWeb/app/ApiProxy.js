@@ -90,7 +90,8 @@ const requests = {
 export const ClientApi = {
     login: (user, password, callback) => requests.login(user, password, callback),
     logout: () => removeCookie(tokenKey),//sessionStorage.removeItem(tokenKey),
-    navinfo: ()=> requests.get("/api/navinfo"),
+    navinfo: () => requests.get("/api/navinfo"),
+    profile:()=>requests.get("/api/users/profile"),
     register:(registerModel) => requests.post("/api/Account/Register",registerModel),
     testGet: () => requests.get("/api/Users/Profile"),
     IsLogged:() => getCookie(tokenKey)!=null //sessionStorage.getItem(tokenKey)!=null
