@@ -1,9 +1,10 @@
 ﻿import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { ClientApi as Api } from "../ApiProxy";
-import HelloPage from "./HelloPage";
+import HelloPage from "./HelloPage"; 
+import AppSite from "./AppSite"; 
 import { BrowserRouter as Router, Route, Link, browserHistory, IndexRoute } from 'react-router-dom';
-import NavPanel from "../components/NavPanel";
+import NavPanel from "./NavPanel";
 
 export default class App extends Component {
 
@@ -26,7 +27,7 @@ export default class App extends Component {
     render() {
         var dom;
         if (this.state.isLogged)
-            dom = <div></div>;
+            dom = <AppSite/>;
         else
             dom = <HelloPage />;
         return (

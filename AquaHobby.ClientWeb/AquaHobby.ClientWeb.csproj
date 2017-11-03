@@ -110,10 +110,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\ApiProxy.js" />
-    <Content Include="app\components\NavPanel.js" />
+    <Content Include="app\components\AppNavPanel.js" />
+    <Content Include="app\containers\AppSite.js" />
+    <Content Include="app\components\LoginPanel.js" />
+    <Content Include="app\containers\MainPage.js" />
+    <Content Include="app\containers\NavPanel.js" />
     <Content Include="app\components\RegisterPanel.js" />
     <Content Include="app\containers\App.js" />
     <Content Include="app\containers\HelloPage.js" />
+    <Content Include="app\containers\UserProfile.js" />
     <Content Include="app\index.js" />
     <Content Include="app\Validators.js" />
     <Content Include="css\bootstrap.css" />

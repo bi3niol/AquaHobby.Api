@@ -1,13 +1,14 @@
 ﻿import React from "react";
 import ReactDOM from "react-dom";
 import App from "./containers/App";
-ReactDOM.render(<App /> , document.getElementById('root'))
+import { BrowserRouter as Router, Route, Link, browserHistory, IndexRoute } from 'react-router-dom';
+ReactDOM.render(
+    <Router history={browserHistory} >
+        <App/>
+    </Router >, document.getElementById('root'))
 
-    //< Router history={browserHistory} >
-    //    <Route path="/" component={App}>
-    //        <IndexRoute component={Test1} />
-    //        <Route path="test1" component={Test1} />
-    //        <Route path="test2" component={Test2} />
-    //        <Route path="test3" component={Test3} />
-    //    </Route>
-    //</Router >
+
+    //    <Route path="/test1" component={Test1} />
+    //    <Route path="/test2" component={Test2} />
+    //< Route path= "/" component= { App } >
+    //    </Route >

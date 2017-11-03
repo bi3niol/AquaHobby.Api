@@ -2,7 +2,9 @@
     border-bottom: solid 1px #0094ff;
     border-radius:3px;
 }
-
+.navbar-collapse.in{
+    overflow:visible;
+}
 .nav-search{
     max-width:300px !important;
     min-width:100px !important;
