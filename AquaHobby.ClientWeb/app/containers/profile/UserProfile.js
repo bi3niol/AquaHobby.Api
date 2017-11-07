@@ -1,6 +1,9 @@
 ﻿import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { ClientApi as Api } from "../../ApiProxy";
+import TopSide from "./topcard/TopSide";
+import LeftSide from "./leftcard/LeftSide";
+import MainSide from "./maincard/MainSide";
 import { BrowserRouter as Router, Route, Link, browserHistory, IndexRoute } from 'react-router-dom';
 
 export default class UserProfile extends Component {
@@ -16,7 +19,8 @@ export default class UserProfile extends Component {
     componentDidMount() {
         var _this = this;
         Api.profile().then((data) => {
-            _this.setState(data);
+            if(data)
+                _this.setState(data);
             console.log(_this.state);
         })
     }
@@ -24,14 +28,14 @@ export default class UserProfile extends Component {
         return (
             <div className="row">
                 <div className="row">
-                    {this.state.Name}
+                    <TopSide User={this.state} />
                 </div>
                 <div className="row">
                     <div className="col-md-4">
-                        left side
+                        <LeftSide User={this.state}/>
                     </div>
                     <div className="col-md-8">
-                        main content
+                        <MainSide User={this.state}/>
                     </div>
                 </div>
             </div>);

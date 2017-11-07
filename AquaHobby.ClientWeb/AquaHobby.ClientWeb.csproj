@@ -118,6 +118,9 @@
     <Content Include="app\components\RegisterPanel.js" />
     <Content Include="app\containers\App.js" />
     <Content Include="app\containers\HelloPage.js" />
+    <Content Include="app\containers\profile\leftcard\LeftSide.js" />
+    <Content Include="app\containers\profile\maincard\MainSide.js" />
+    <Content Include="app\containers\profile\topcard\TopSide.js" />
     <Content Include="app\containers\profile\UserProfile.js" />
     <Content Include="app\index.js" />
     <Content Include="app\Validators.js" />

@@ -14427,40 +14427,36 @@ var LoginPanel = function (_Component) {
                 "div",
                 { className: "nav navbar-nav navbar-right text-center" },
                 _react2.default.createElement(
-                    "form",
-                    null,
+                    "ul",
+                    { className: this.state.HasError ? "has-error nav navbar-nav" : "nav navbar-nav" },
                     _react2.default.createElement(
-                        "ul",
-                        { className: this.state.HasError ? "has-error nav navbar-nav" : "nav navbar-nav" },
+                        "li",
+                        null,
                         _react2.default.createElement(
-                            "li",
+                            "a",
+                            null,
+                            _react2.default.createElement("input", { className: "form-control", name: "User", placeholder: "Email...", type: "email", value: this.state.User, onChange: this.inputPropChange })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "li",
+                        null,
+                        _react2.default.createElement(
+                            "a",
+                            null,
+                            _react2.default.createElement("input", { className: "form-control", name: "Password", placeholder: "Has\u0142o...", type: "password", value: this.state.Password, onChange: this.inputPropChange })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "li",
+                        null,
+                        _react2.default.createElement(
+                            "a",
                             null,
                             _react2.default.createElement(
-                                "a",
-                                null,
-                                _react2.default.createElement("input", { className: "form-control", name: "User", placeholder: "Email...", type: "email", value: this.state.User, onChange: this.inputPropChange })
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "li",
-                            null,
-                            _react2.default.createElement(
-                                "a",
-                                null,
-                                _react2.default.createElement("input", { className: "form-control", name: "Password", placeholder: "Has\u0142o...", type: "password", value: this.state.Password, onChange: this.inputPropChange })
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "li",
-                            null,
-                            _react2.default.createElement(
-                                "a",
-                                null,
-                                _react2.default.createElement(
-                                    "button",
-                                    { type: "submit", disabled: this.state.IsProccessing, className: "form-control btn-success btn", onClick: this.handleLogin },
-                                    "Zaloguj si\u0119"
-                                )
+                                "button",
+                                { disabled: this.state.IsProccessing, className: "form-control btn-success btn", onClick: this.handleLogin },
+                                "Zaloguj si\u0119"
                             )
                         )
                     )
@@ -14533,6 +14529,7 @@ var RegisterPanel = function (_Component) {
         var _this2 = _possibleConstructorReturn(this, (RegisterPanel.__proto__ || Object.getPrototypeOf(RegisterPanel)).call(this, props));
 
         _this2.state = {
+            IsProcessing: false,
             IsRegistered: false,
             RegisterError: false,
             RegisterErrorObj: [],
@@ -14561,9 +14558,11 @@ var RegisterPanel = function (_Component) {
         key: "handleSubmit",
         value: function handleSubmit(event) {
             var _this = this;
+            this.setState({ IsProcessing: false });
             _ApiProxy.ClientApi.register(this.state.RegisterModel).then(function (res) {
                 console.log(res);
                 _this.setState({
+                    IsProcessing: false,
                     IsRegistered: true,
                     RegisterErrorObj: [],
                     RegisterError: false,
@@ -14576,6 +14575,7 @@ var RegisterPanel = function (_Component) {
             }).catch(function (res) {
                 console.log(res);
                 if (res && res.response && res.response.data && res.response.data.ModelState && res.response.data.ModelState.errors) _this.setState({
+                    IsProcessing: false,
                     RegisterErrorObj: res.response.data.ModelState.errors,
                     IsRegistered: false,
                     RegisterError: true
@@ -14721,7 +14721,7 @@ var RegisterPanel = function (_Component) {
                         { className: "text-center" },
                         _react2.default.createElement(
                             "div",
-                            { className: "btn-success btn", disabled: !formValid ? true : false, onClick: this.handleSubmit },
+                            { className: "btn-success btn", disabled: !formValid && !this.state.IsProcessing ? true : false, onClick: this.handleSubmit },
                             "Zarejestruj si\u0119"
                         )
                     )

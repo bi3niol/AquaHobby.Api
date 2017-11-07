@@ -6,6 +6,7 @@ export default class RegisterPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            IsProcessing: false,
             IsRegistered: false,
             RegisterError: false,
             RegisterErrorObj: [],
@@ -25,9 +26,11 @@ export default class RegisterPanel extends Component {
     }
     handleSubmit(event) {
         var _this = this;
+        this.setState({ IsProcessing: false });
         Api.register(this.state.RegisterModel).then(function (res) {
             console.log(res);
             _this.setState({
+                IsProcessing: false,
                 IsRegistered: true,
                 RegisterErrorObj: [],
                 RegisterError: false,
@@ -41,6 +44,7 @@ export default class RegisterPanel extends Component {
             console.log(res);
             if (res && res.response && res.response.data && res.response.data.ModelState && res.response.data.ModelState.errors)
                 _this.setState({
+                    IsProcessing: false,
                     RegisterErrorObj: res.response.data.ModelState.errors,
                     IsRegistered: false,
                     RegisterError: true
@@ -115,7 +119,7 @@ export default class RegisterPanel extends Component {
                 </div>
                 <div className="row form-group">
                     <div className="text-center">
-                        <div className="btn-success btn" disabled={!formValid ? true : false} onClick={this.handleSubmit}>
+                        <div className="btn-success btn" disabled={!formValid && !this.state.IsProcessing? true : false} onClick={this.handleSubmit}>
                             Zarejestruj się
                         </div>
                     </div>
