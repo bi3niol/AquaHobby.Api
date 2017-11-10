@@ -8,6 +8,13 @@ module.exports = {
     output: {
         filename: "bundle.js"
     },
+    //devServer: {
+    //    historyApiFallback: {
+    //        rewrites: [
+    //            { from: /^\/$/, to: '/index.html' }
+    //        ]
+    //    }
+    //},
     module: {
         loaders: [
             {

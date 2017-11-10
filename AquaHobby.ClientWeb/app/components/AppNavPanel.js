@@ -18,7 +18,8 @@ export default class AppNavPanel extends Component {
     componentDidMount() {
         var _this = this;
         Api.navinfo().then((data) => {
-            _this.setState({ NavInfo: data });
+            if (data)
+                _this.setState({ NavInfo: data });
         }).catch((error) => { })
     }
     handleLogout(event) {
@@ -55,9 +56,9 @@ export default class AppNavPanel extends Component {
                     </a>
                 </li>
                 <li>
-                    <a href="/#/main">
+                    <Link to="/main">
                         <div className="btn">Strona główna</div>
-                    </a>
+                    </Link>
                 </li>
                 <li className="dropdown">
                     <Link to="#" className="dropdown-toggle" data-toggle="dropdown">

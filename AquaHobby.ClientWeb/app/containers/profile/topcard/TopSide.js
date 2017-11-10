@@ -7,8 +7,14 @@ export default class TopSide extends Component {
 
     render() {
         return (
-            <div>
-            </div>
+            <usertopcontent>
+                <div className="top-user-content">
+                    <userimage>
+                    </userimage>
+                   <userpanel>asdwd
+                    </userpanel>
+                </div>
+            </usertopcontent>
         );
     }
 }
