@@ -41,7 +41,7 @@ export default class AppNavPanel extends Component {
                     </Link>
                 </li>
                 <li>
-                    <Link to="#">
+                    <a href="#">
                         <div className="nav-search">
                             <div className="input-group">
                                 <input className="form-control" name="Filter" placeholder="Szukaj hobbistów..." type="text" value={this.state.Filter} onChange={this.inputPropChange} />
@@ -52,12 +52,12 @@ export default class AppNavPanel extends Component {
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                    </a>
                 </li>
                 <li>
-                    <Link to="/main">
+                    <a href="/#/main">
                         <div className="btn">Strona główna</div>
-                    </Link>
+                    </a>
                 </li>
                 <li className="dropdown">
                     <Link to="#" className="dropdown-toggle" data-toggle="dropdown">

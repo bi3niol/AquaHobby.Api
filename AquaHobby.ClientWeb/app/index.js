@@ -2,6 +2,7 @@
 import ReactDOM from "react-dom";
 import App from "./containers/App";
 import { BrowserRouter as Router, Route, Link, browserHistory, IndexRoute } from 'react-router-dom';
+
 ReactDOM.render(
     <Router history={browserHistory} >
         <App/>
