@@ -2,6 +2,7 @@
 import ReactDOM from "react-dom";
 import { ClientApi as Api } from "../ApiProxy";
 import { BrowserRouter as Router, Route, Link, browserHistory, IndexRoute } from 'react-router-dom';
+import { RouteParams as Rparams } from '../RouteParams';
 
 export default class AppNavPanel extends Component {
     constructor(props) {
@@ -34,15 +35,17 @@ export default class AppNavPanel extends Component {
         });
     }
     render() {
+        var myProfile = "?" + Rparams.Params.Page + "=" + Rparams.Pages.UserProfile;
+        var mainPage = "?" + Rparams.Params.Page + "=" + Rparams.Pages.MainPage;
         return (
             <ul className="nav navbar-nav navbar-right text-center">
                 <li>
-                    <Link to="/profile">
+                    <a href={myProfile}>
                         <div className="btn">{this.state.NavInfo.Name}</div>
-                    </Link>
+                    </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a>
                         <div className="nav-search">
                             <div className="input-group">
                                 <input className="form-control" name="Filter" placeholder="Szukaj hobbistów..." type="text" value={this.state.Filter} onChange={this.inputPropChange} />
@@ -56,9 +59,9 @@ export default class AppNavPanel extends Component {
                     </a>
                 </li>
                 <li>
-                    <Link to="/main">
+                    <a href={mainPage}>
                         <div className="btn">Strona główna</div>
-                    </Link>
+                    </a>
                 </li>
                 <li className="dropdown">
                     <Link to="#" className="dropdown-toggle" data-toggle="dropdown">

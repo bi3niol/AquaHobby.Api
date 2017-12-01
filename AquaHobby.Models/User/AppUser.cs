@@ -13,7 +13,7 @@ namespace AquaHobby.Models.User
         public List<Gallery> Gallery { get; set; }        
         public List<Aquarium> Aquariums { get; set; }
 
-        [IgnoreDataMember]
-        public List<Photo> ProfilePhotos { get; set; }
+        //[IgnoreDataMember]
+        public virtual List<Photo> ProfilePhotos { get; set; }
     }
 }
