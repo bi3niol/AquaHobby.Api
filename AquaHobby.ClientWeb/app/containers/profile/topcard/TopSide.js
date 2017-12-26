@@ -11,7 +11,7 @@ export default class TopSide extends Component {
                 <div className="top-user-content">
                     <userimage>
                     </userimage>
-                   <userpanel>asdwd
+                   <userpanel>
                     </userpanel>
                 </div>
             </usertopcontent>

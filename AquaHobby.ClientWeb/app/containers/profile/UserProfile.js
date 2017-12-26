@@ -19,7 +19,7 @@ export default class UserProfile extends Component {
     componentDidMount() {
         var _this = this;
         Api.profile().then((data) => {
-            if(data)
+            if (data)
                 _this.setState(data);
             console.log(_this.state);
         })
@@ -28,14 +28,16 @@ export default class UserProfile extends Component {
         return (
             <div className="row">
                 <div className="row">
-                    <TopSide User={this.state} />
+                    <div className="col-md-12">
+                        <TopSide User={this.state} />
+                    </div>
                 </div>
                 <div className="row">
                     <div className="col-md-4">
-                        <LeftSide User={this.state}/>
+                        <LeftSide User={this.state} />
                     </div>
                     <div className="col-md-8">
-                        <MainSide User={this.state}/>
+                        <MainSide User={this.state} />
                     </div>
                 </div>
             </div>);

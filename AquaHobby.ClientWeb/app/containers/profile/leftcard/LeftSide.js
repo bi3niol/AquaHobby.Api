@@ -7,8 +7,8 @@ export default class LeftSide extends Component {
 
     render() {
         return (
-            <div>
-            </div>
+            <leftnav>
+            </leftnav>
         );
     }
 }
