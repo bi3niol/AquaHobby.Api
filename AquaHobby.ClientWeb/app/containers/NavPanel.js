@@ -21,7 +21,7 @@ export default class NavPanel extends Component {
             <nav className="navbar navbar-default navbar-fixed-top">
                 <div className="container">
                     <div className="navbar-header">
-                        <Link className="navbar-brand" to="/">Aqua Hobby</Link>
+                        <a className="navbar-brand" href="?">Aqua Hobby</a>
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
