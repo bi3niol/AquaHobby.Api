@@ -29,7 +29,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            __API_URL__: JSON.stringify(process.env.API_URL || 'http://localhost:3030')
+            __API_URL__: JSON.stringify(process.env.API_URL || 'http://aquahobbyapi.azurewebsites.net')
         })
         //new HtmlWebpackPlugin({
         //    template: 'index.html'

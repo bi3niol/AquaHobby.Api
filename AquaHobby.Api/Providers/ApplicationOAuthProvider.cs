@@ -53,7 +53,7 @@ namespace AquaHobby.Api.Providers
             if (context.OwinContext.Request.Method == "OPTIONS" /*&& context.IsTokenEndpoint*/)
             {
                 context.OwinContext.Response.Headers.Add("Access-Control-Allow-Methods", new[] { "POST","GET","PUT" });
-                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "accept", "authorization", "content-type" });
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "accept", "authorization", "content-type", "Content-Type" });
                 context.OwinContext.Response.StatusCode = 200;
                 context.RequestCompleted();
 

@@ -30,7 +30,8 @@ namespace AquaHobby.DAL
 
         public AquaHobbyContext() : base("AquaHobbyContext")
         {
-            Database.SetInitializer<AquaHobbyContext>(new DropCreateDatabaseIfModelChanges<AquaHobbyContext>());
+            Database.SetInitializer<AquaHobbyContext>(new CreateDatabaseIfNotExists<AquaHobbyContext>());
+            //Database.SetInitializer<AquaHobbyContext>(new DropCreateDatabaseIfModelChanges<AquaHobbyContext>());
         }
     }
 }

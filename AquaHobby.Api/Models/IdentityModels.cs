@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Data.Entity;
 
 namespace AquaHobby.Api.Models
 {
@@ -24,8 +25,10 @@ namespace AquaHobby.Api.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            //Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
         }
-        
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

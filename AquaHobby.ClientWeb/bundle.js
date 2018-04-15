@@ -2283,7 +2283,7 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var apiUrl = "http://localhost:3030";
+    var apiUrl = "https://aquahobbyapi.azurewebsites.net";
 
 var handleErrors = function handleErrors(err) {
     console.error(err);
