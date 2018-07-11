@@ -26,8 +26,8 @@ namespace AquaHobby.Api.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
             //Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
-            Database.SetInitializer(new MySqlInitializer());
-            //Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
+            //Database.SetInitializer(new MySqlInitializer());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
         }
 
         public static ApplicationDbContext Create()

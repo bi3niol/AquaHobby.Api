@@ -31,8 +31,8 @@ namespace AquaHobby.DAL
 
         public AquaHobbyContext() : base("AquaHobbyContext")
         {
-            Database.SetInitializer(new MySqlInitializer());
-            //Database.SetInitializer<AquaHobbyContext>(new CreateDatabaseIfNotExists<AquaHobbyContext>());
+            //Database.SetInitializer(new MySqlInitializer());
+            Database.SetInitializer<AquaHobbyContext>(new CreateDatabaseIfNotExists<AquaHobbyContext>());
             //Database.SetInitializer<AquaHobbyContext>(new DropCreateDatabaseIfModelChanges<AquaHobbyContext>());
         }
         public class MySqlInitializer : IDatabaseInitializer<AquaHobbyContext>
